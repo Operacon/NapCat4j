@@ -48,6 +48,7 @@ import java.util.concurrent.TimeUnit;
 @EnableWebSocket
 @Import(Shiro.class)
 @ComponentScan("com.mikuac.shiro")
+@ComponentScan("fun.imiku.napcat4j")
 public class ShiroAutoConfiguration implements WebSocketConfigurer, HandshakeInterceptor {
 
     private final WebSocketServerProperties wsServerProp;

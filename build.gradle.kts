@@ -5,6 +5,9 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
 }
 
+group = "fun.imiku"
+version = "0.0.1-SNAPSHOT"
+
 repositories {
     maven { url = uri("https://maven.aliyun.com/repository/public/") }
     mavenCentral()
@@ -32,8 +35,8 @@ dependencies {
 java {
     withSourcesJar()
     withJavadocJar()
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(25))
     }
@@ -76,7 +79,7 @@ publishing {
 
 subprojects {
     tasks.withType<JavaCompile> {
-        options.release.set(21)
+        options.release.set(25)
     }
 
     tasks.withType<Test> {

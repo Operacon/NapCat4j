@@ -12,6 +12,7 @@ import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.mikuac.shiro.enums.MessageEventEnum;
 import com.mikuac.shiro.handler.injection.InjectionHandler;
 import com.mikuac.shiro.properties.ShiroProperties;
+import fun.imiku.napcat4j.dispatcher.MessageEventDispatcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,9 @@ public class MessageEvent {
     private final ShiroProperties shiroProperties;
     private final BotContainer botContainer;
     private final InjectionHandler injection;
+
+    @Autowired
+    private MessageEventDispatcher napcat4jDispatcher;
 
     @Autowired
     public MessageEvent(
@@ -70,6 +74,7 @@ public class MessageEvent {
         try {
             if (type == MessageEventEnum.FRIEND) {
                 PrivateMessageEvent event = resp.to(PrivateMessageEvent.class);
+                napcat4jDispatcher.dispatch(bot, event);
                 if (utils.setInterceptor(bot, event)) {
                     return;
                 }
@@ -96,6 +101,7 @@ public class MessageEvent {
                         return;
                     }
                 }
+                napcat4jDispatcher.dispatch(bot, event);
                 if (utils.setInterceptor(bot, event)) {
                     return;
                 }
