@@ -5,7 +5,6 @@ import lombok.Data;
 
 /**
  * @author Neo
- * @date 2023/7/26
  */
 @Data
 public class GetStatusResp {

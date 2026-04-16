@@ -1,1 +1,1 @@
-rootProject.name = "shiro"
+rootProject.name = "NapCat4j"

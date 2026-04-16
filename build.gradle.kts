@@ -1,22 +1,32 @@
-@file:Suppress("SpellCheckingInspection")
-
-import org.jreleaser.model.Active
-
-group = "com.mikuac"
-version = "2.5.3"
-
-val mavenArtifactResolver = "1.9.27"
-val mavenResolverProvider = "3.9.14"
-val junit = "6.0.3"
-
 plugins {
-    signing
-    `java-library`
-    `maven-publish`
-    id("org.jreleaser") version "1.23.0"
-    id("io.freefair.lombok") version "9.2.0"
+    id("java-library")
+    id("maven-publish")
     id("org.springframework.boot") version "4.0.5"
     id("io.spring.dependency-management") version "1.1.7"
+}
+
+repositories {
+    maven { url = uri("https://maven.aliyun.com/repository/public/") }
+    mavenCentral()
+}
+
+dependencies {
+	api(platform("org.springframework.boot:spring-boot-dependencies:4.0.5"))
+    api("org.springframework.boot:spring-boot-autoconfigure")
+    api("org.springframework:spring-context")
+    api("org.springframework.boot:spring-boot-starter-websocket")
+
+    implementation("org.slf4j:slf4j-api")
+    implementation("tools.jackson.core:jackson-databind")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testCompileOnly("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
 }
 
 java {
@@ -24,6 +34,9 @@ java {
     withJavadocJar()
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
 }
 
 tasks {
@@ -52,98 +65,21 @@ tasks {
     }
 }
 
-repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public/") }
-    mavenCentral()
-}
-
-dependencies {
-    api("org.springframework.boot:spring-boot-starter-websocket")
-
-    api("org.apache.maven:maven-resolver-provider:$mavenResolverProvider")
-    api("org.apache.maven.resolver:maven-resolver-connector-basic:$mavenArtifactResolver")
-    api("org.apache.maven.resolver:maven-resolver-transport-file:$mavenArtifactResolver")
-    api("org.apache.maven.resolver:maven-resolver-transport-http:$mavenArtifactResolver")
-    api("org.apache.maven.resolver:maven-resolver-impl:$mavenArtifactResolver")
-    api("org.apache.maven.resolver:maven-resolver-api:$mavenArtifactResolver")
-    api("org.apache.maven.resolver:maven-resolver-util:$mavenArtifactResolver")
-    api("org.apache.maven.resolver:maven-resolver-spi:$mavenArtifactResolver")
-
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.junit.jupiter:junit-jupiter:$junit")
-}
-
-val stagingDirectory: Directory = layout.buildDirectory.dir("staging-deploy").get()
-
-fun MavenPom.populate() {
-    packaging = "jar"
-    group = project.group
-    name = project.name
-    version = project.version
-    description = "基于OneBot协议的QQ机器人快速开发框架"
-    url = "https://github.com/MisakaTAT/Shiro"
-    scm {
-        url = "https://github.com/MisakaTAT/Shiro"
-        connection = "scm:git:git://github.com/MisakaTAT/Shiro.git"
-        developerConnection = "scm:git:ssh://github.com/MisakaTAT/Shiro.git"
-    }
-    licenses {
-        license {
-            name = "GNU Affero General Public License v3.0"
-            url = "https://github.com/MisakaTAT/Shiro/blob/main/LICENSE"
-            distribution = "repo"
-        }
-    }
-    developers {
-        developer {
-            id = "MisakaTAT"
-            name = "MisakaTAT"
-            email = "i@mikuac.com"
-        }
-    }
-}
-
 publishing {
     publications {
-        register<MavenPublication>("Release") {
+        create<MavenPublication>("mavenJava") {
             from(components["java"])
-            artifactId = project.name
-            groupId = project.group as String
-            version = project.version as String
-            pom.populate()
-        }
-    }
-
-    repositories.maven {
-        url = stagingDirectory.asFile.toURI()
-    }
-}
-
-jreleaser {
-    signing {
-        active = Active.RELEASE
-        armored = true
-    }
-    deploy {
-        maven {
-            mavenCentral {
-                register("sonatype") {
-                    active = Active.RELEASE
-                    url = "https://central.sonatype.com/api/v1/publisher"
-                    stagingRepository(stagingDirectory.asFile.relativeTo(projectDir).path)
-                }
-            }
+            artifactId = "napcat4j-spring-boot-starter"
         }
     }
 }
 
-tasks.jar {
-    manifest {
-        attributes(
-            "Implementation-Title" to project.name,
-            "Implementation-Version" to project.version
-        )
+subprojects {
+    tasks.withType<JavaCompile> {
+        options.release.set(21)
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 }
