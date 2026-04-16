@@ -49,6 +49,10 @@ public class MessageEventDispatcher {
     }
 
     public void dispatch(Bot bot, PrivateMessageEvent event) {
+        if (event.getPostType().equals("message_sent")) {
+            dispatchSent(bot, event);
+            return;
+        }
         long now = Instant.now().getEpochSecond();
         for (ListenerBinding<PrivateMessageEvent> binding : privateListeners) {
             dispatchAsync(bot, event, binding, now);
@@ -56,10 +60,20 @@ public class MessageEventDispatcher {
     }
 
     public void dispatch(Bot bot, GroupMessageEvent event) {
+        if (event.getPostType().equals("message_sent")) {
+            dispatchSent(bot, event);
+            return;
+        }
         long now = Instant.now().getEpochSecond();
         for (ListenerBinding<GroupMessageEvent> binding : groupListeners) {
             dispatchAsync(bot, event, binding, now);
         }
+    }
+
+    public void dispatchSent(Bot bot, PrivateMessageEvent event) {
+    }
+
+    public void dispatchSent(Bot bot, GroupMessageEvent event) {
     }
 
     private <T extends MessageEvent> void dispatchAsync(Bot bot, T event, ListenerBinding<T> binding, long now) {
