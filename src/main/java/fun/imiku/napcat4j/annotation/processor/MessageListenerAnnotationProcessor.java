@@ -1,7 +1,9 @@
 package fun.imiku.napcat4j.annotation.processor;
 
 import fun.imiku.napcat4j.annotation.message.GroupMessageListener;
+import fun.imiku.napcat4j.annotation.message.GroupMessageSentListener;
 import fun.imiku.napcat4j.annotation.message.PrivateMessageListener;
+import fun.imiku.napcat4j.annotation.message.PrivateMessageSentListener;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -29,11 +31,15 @@ import java.util.Set;
  * <ul>
  *   <li>{@link PrivateMessageListener}: class must implement {@code MessageListener<PrivateMessageEvent>}</li>
  *   <li>{@link GroupMessageListener}: class must implement {@code MessageListener<GroupMessageEvent>}</li>
+ *   <li>{@link PrivateMessageSentListener}: class must implement {@code MessageListener<PrivateMessageEvent>}</li>
+ *   <li>{@link GroupMessageSentListener}: class must implement {@code MessageListener<GroupMessageEvent>}</li>
  * </ul>
  */
 @SupportedAnnotationTypes({
         "fun.imiku.napcat4j.annotation.message.PrivateMessageListener",
-        "fun.imiku.napcat4j.annotation.message.GroupMessageListener"
+        "fun.imiku.napcat4j.annotation.message.GroupMessageListener",
+        "fun.imiku.napcat4j.annotation.message.PrivateMessageSentListener",
+        "fun.imiku.napcat4j.annotation.message.GroupMessageSentListener"
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_25)
 public class MessageListenerAnnotationProcessor extends AbstractProcessor {
@@ -56,6 +62,8 @@ public class MessageListenerAnnotationProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         validateAnnotatedTypes(roundEnv, PrivateMessageListener.class, PRIVATE_EVENT_FQCN, "@PrivateMessageListener");
         validateAnnotatedTypes(roundEnv, GroupMessageListener.class, GROUP_EVENT_FQCN, "@GroupMessageListener");
+        validateAnnotatedTypes(roundEnv, PrivateMessageSentListener.class, PRIVATE_EVENT_FQCN, "@PrivateMessageSentListener");
+        validateAnnotatedTypes(roundEnv, GroupMessageSentListener.class, GROUP_EVENT_FQCN, "@GroupMessageSentListener");
         return false;
     }
 

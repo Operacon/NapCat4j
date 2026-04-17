@@ -5,7 +5,9 @@ import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.mikuac.shiro.dto.event.message.MessageEvent;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import fun.imiku.napcat4j.annotation.message.GroupMessageListener;
+import fun.imiku.napcat4j.annotation.message.GroupMessageSentListener;
 import fun.imiku.napcat4j.annotation.message.PrivateMessageListener;
+import fun.imiku.napcat4j.annotation.message.PrivateMessageSentListener;
 import fun.imiku.napcat4j.listener.MessageListener;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -31,6 +33,8 @@ public class MessageEventDispatcher {
 
     private List<ListenerBinding<PrivateMessageEvent>> privateListeners = List.of();
     private List<ListenerBinding<GroupMessageEvent>> groupListeners = List.of();
+    private List<ListenerBinding<PrivateMessageEvent>> privateSentListeners = List.of();
+    private List<ListenerBinding<GroupMessageEvent>> groupSentListeners = List.of();
 
     public MessageEventDispatcher(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
@@ -40,7 +44,10 @@ public class MessageEventDispatcher {
     public void init() {
         this.privateListeners = scanPrivateMessageListeners();
         this.groupListeners = scanGroupMessageListeners();
-        log.info("消息调度器加载完毕，{} 个私聊监听器，{} 个群聊监听器", privateListeners.size(), groupListeners.size());
+        this.privateSentListeners = scanPrivateMessageSentListeners();
+        this.groupSentListeners = scanGroupMessageSentListeners();
+        log.info("消息调度器加载完毕, {} private 监听器, {} group 监听器, {} private_sent 监听器, {} group_sent 监听器",
+                privateListeners.size(), groupListeners.size(), privateSentListeners.size(), groupSentListeners.size());
     }
 
     @PreDestroy
@@ -77,9 +84,23 @@ public class MessageEventDispatcher {
     }
 
     public void dispatchSent(Bot bot, PrivateMessageEvent event) {
+        if (privateSentListeners.isEmpty()) {
+            return;
+        }
+        long now = Instant.now().getEpochSecond();
+        for (ListenerBinding<PrivateMessageEvent> binding : privateSentListeners) {
+            dispatchAsync(bot, event, binding, now);
+        }
     }
 
     public void dispatchSent(Bot bot, GroupMessageEvent event) {
+        if (groupSentListeners.isEmpty()) {
+            return;
+        }
+        long now = Instant.now().getEpochSecond();
+        for (ListenerBinding<GroupMessageEvent> binding : groupSentListeners) {
+            dispatchAsync(bot, event, binding, now);
+        }
     }
 
     private <T extends MessageEvent> void dispatchAsync(Bot bot, T event, ListenerBinding<T> binding, long now) {
@@ -149,6 +170,45 @@ public class MessageEventDispatcher {
         return List.copyOf(bindings);
     }
 
+    @SuppressWarnings("unchecked")
+    private List<ListenerBinding<PrivateMessageEvent>> scanPrivateMessageSentListeners() {
+        Map<String, Object> beans = applicationContext.getBeansWithAnnotation(PrivateMessageSentListener.class);
+        List<ListenerBinding<PrivateMessageEvent>> bindings = new ArrayList<>(beans.size());
+        for (Object bean : beans.values()) {
+            PrivateMessageSentListener annotation = AnnotationUtils.findAnnotation(
+                    AopUtils.getTargetClass(bean), PrivateMessageSentListener.class);
+            if (annotation == null) {
+                continue;
+            }
+            if (!(bean instanceof MessageListener<?> listener)) {
+                log.error("@PrivateMessageSentListener bean does not implement MessageListener: {}", bean.getClass().getName());
+                continue;
+            }
+            bindings.add(new ListenerBinding<>((MessageListener<PrivateMessageEvent>) listener, annotation.value()));
+        }
+        return List.copyOf(bindings);
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<ListenerBinding<GroupMessageEvent>> scanGroupMessageSentListeners() {
+        Map<String, Object> beans = applicationContext.getBeansWithAnnotation(GroupMessageSentListener.class);
+        List<ListenerBinding<GroupMessageEvent>> bindings = new ArrayList<>(beans.size());
+        for (Object bean : beans.values()) {
+            GroupMessageSentListener annotation = AnnotationUtils.findAnnotation(
+                    AopUtils.getTargetClass(bean), GroupMessageSentListener.class);
+            if (annotation == null) {
+                continue;
+            }
+            if (!(bean instanceof MessageListener<?> listener)) {
+                log.error("@GroupMessageSentListener bean does not implement MessageListener: {}", bean.getClass().getName());
+                continue;
+            }
+            bindings.add(new ListenerBinding<>((MessageListener<GroupMessageEvent>) listener, annotation.value()));
+        }
+        return List.copyOf(bindings);
+    }
+
     private record ListenerBinding<T extends MessageEvent>(MessageListener<T> listener, int ignoreSeconds) {
     }
 }
+
