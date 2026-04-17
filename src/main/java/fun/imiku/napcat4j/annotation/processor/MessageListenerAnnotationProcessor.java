@@ -1,7 +1,7 @@
 package fun.imiku.napcat4j.annotation.processor;
 
-import fun.imiku.napcat4j.annotation.GroupMessageListener;
-import fun.imiku.napcat4j.annotation.PrivateMessageListener;
+import fun.imiku.napcat4j.annotation.message.GroupMessageListener;
+import fun.imiku.napcat4j.annotation.message.PrivateMessageListener;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -32,8 +32,8 @@ import java.util.Set;
  * </ul>
  */
 @SupportedAnnotationTypes({
-        "fun.imiku.napcat4j.annotation.PrivateMessageListener",
-        "fun.imiku.napcat4j.annotation.GroupMessageListener"
+        "fun.imiku.napcat4j.annotation.message.PrivateMessageListener",
+        "fun.imiku.napcat4j.annotation.message.GroupMessageListener"
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_25)
 public class MessageListenerAnnotationProcessor extends AbstractProcessor {

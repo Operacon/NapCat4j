@@ -83,11 +83,18 @@ public class EventHandler implements ApplicationRunner {
         notice.handlers.put("message_reactions_updated", notice::messageReactionsUpdated);
         notice.handlers.put("reaction", notice::groupReactionMessage);
         notice.handlers.put("group_msg_emoji_like", notice::messageEmojiLikeMessage);
+        notice.handlers.put("essence", notice::essenceMessage);
+        notice.handlers.put("bot_offline", notice::botOffline);
 
         // Register Notify Handler
         notify.handlers.put("poke", notify::poke);
         notify.handlers.put("lucky_king", notify::luckyKing);
         notify.handlers.put("honor", notify::honor);
+        notify.handlers.put("group_name", notify::groupName);
+        notify.handlers.put("title", notify::groupTitle);
+        notify.handlers.put("gray_tip", notify::grayTip);
+        notify.handlers.put("profile_like", notify::profileLike);
+        notify.handlers.put("input_status", notify::inputStatus);
 
         // Register Request Handler
         request.handlers.put("friend", request::friend);

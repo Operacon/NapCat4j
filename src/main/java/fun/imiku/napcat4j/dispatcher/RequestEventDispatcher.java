@@ -4,8 +4,8 @@ import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.request.FriendAddRequestEvent;
 import com.mikuac.shiro.dto.event.request.GroupAddRequestEvent;
 import com.mikuac.shiro.dto.event.request.RequestEvent;
-import fun.imiku.napcat4j.annotation.FriendRequestListener;
-import fun.imiku.napcat4j.annotation.GroupRequestListener;
+import fun.imiku.napcat4j.annotation.request.FriendRequestListener;
+import fun.imiku.napcat4j.annotation.request.GroupRequestListener;
 import fun.imiku.napcat4j.listener.RequestListener;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -15,7 +15,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

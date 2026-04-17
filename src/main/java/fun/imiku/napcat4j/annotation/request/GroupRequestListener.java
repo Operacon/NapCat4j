@@ -1,4 +1,4 @@
-package fun.imiku.napcat4j.annotation;
+package fun.imiku.napcat4j.annotation.request;
 
 import org.springframework.stereotype.Component;
 

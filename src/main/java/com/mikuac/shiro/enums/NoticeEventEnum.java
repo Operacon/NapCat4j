@@ -69,5 +69,13 @@ public enum NoticeEventEnum {
     /**
      * 消息表情回应
      */
-    MESSAGE_EMOJI_LIKE
+    MESSAGE_EMOJI_LIKE,
+    /**
+     * 精华消息
+     */
+    ESSENCE,
+    /**
+     * bot 离线
+     */
+    BOT_OFFLINE
 }

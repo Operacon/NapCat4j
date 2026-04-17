@@ -1,7 +1,7 @@
 package fun.imiku.napcat4j.annotation.processor;
 
-import fun.imiku.napcat4j.annotation.FriendRequestListener;
-import fun.imiku.napcat4j.annotation.GroupRequestListener;
+import fun.imiku.napcat4j.annotation.request.FriendRequestListener;
+import fun.imiku.napcat4j.annotation.request.GroupRequestListener;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -32,8 +32,8 @@ import java.util.Set;
  * </ul>
  */
 @SupportedAnnotationTypes({
-        "fun.imiku.napcat4j.annotation.FriendRequestListener",
-        "fun.imiku.napcat4j.annotation.GroupRequestListener"
+        "fun.imiku.napcat4j.annotation.request.FriendRequestListener",
+        "fun.imiku.napcat4j.annotation.request.GroupRequestListener"
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_25)
 public class RequestListenerAnnotationProcessor extends AbstractProcessor {

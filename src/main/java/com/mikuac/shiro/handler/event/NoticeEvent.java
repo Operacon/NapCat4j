@@ -149,6 +149,16 @@ public class NoticeEvent {
             MessageReactionsUpdatedNoticeEvent event = resp.to(MessageReactionsUpdatedNoticeEvent.class);
             bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onMessageReactionsUpdatedNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
         }
+
+        if (type == NoticeEventEnum.ESSENCE) {
+            GroupEssenceNoticeEvent event = resp.to(GroupEssenceNoticeEvent.class);
+            bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onEssenceNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
+        }
+
+        if (type == NoticeEventEnum.BOT_OFFLINE) {
+            BotOfflineEvent event = resp.to(BotOfflineEvent.class);
+            bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onOffline(bot, event) == BotPlugin.MESSAGE_BLOCK);
+        }
     }
 
     /**
@@ -319,4 +329,23 @@ public class NoticeEvent {
         process(bot, resp, NoticeEventEnum.MESSAGE_EMOJI_LIKE);
     }
 
+    /**
+     * 精华消息
+     *
+     * @param bot  {@link Bot}
+     * @param resp {@link JsonObjectWrapper}
+     */
+    public void essenceMessage(Bot bot, JsonObjectWrapper resp) {
+        process(bot, resp, NoticeEventEnum.ESSENCE);
+    }
+
+    /**
+     * bot 离线
+     *
+     * @param bot  {@link Bot}
+     * @param resp {@link JsonObjectWrapper}
+     */
+    public void botOffline(Bot bot, JsonObjectWrapper resp) {
+        process(bot, resp, NoticeEventEnum.BOT_OFFLINE);
+    }
 }

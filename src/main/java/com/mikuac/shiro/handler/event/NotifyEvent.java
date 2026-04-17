@@ -4,9 +4,14 @@ import com.mikuac.shiro.common.utils.EventUtils;
 import com.mikuac.shiro.common.utils.JsonObjectWrapper;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotPlugin;
+import com.mikuac.shiro.dto.event.notice.GroupGrayTipNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.GroupHonorChangeNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.GroupLuckyKingNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupNameNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupTitleNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.InputStatusNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.PokeNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.ProfileLikeNoticeEvent;
 import com.mikuac.shiro.enums.NotifyEventEnum;
 import com.mikuac.shiro.handler.injection.InjectionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +82,31 @@ public class NotifyEvent {
             GroupLuckyKingNoticeEvent event = resp.to(GroupLuckyKingNoticeEvent.class);
             bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onGroupLuckyKingNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
         }
+
+        if (type == NotifyEventEnum.GROUP_NAME_CHANGE) {
+            GroupNameNoticeEvent event = resp.to(GroupNameNoticeEvent.class);
+            bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onGroupNameChangeNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
+        }
+
+        if (type == NotifyEventEnum.GROUP_TITLE_CHANGE) {
+            GroupTitleNoticeEvent event = resp.to(GroupTitleNoticeEvent.class);
+            bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onGroupTitleChangeNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
+        }
+
+        if (type == NotifyEventEnum.GRAY_TIP) {
+            GroupGrayTipNoticeEvent event = resp.to(GroupGrayTipNoticeEvent.class);
+            bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onGrayTipNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
+        }
+
+        if (type == NotifyEventEnum.PROFILE_LIKE) {
+            ProfileLikeNoticeEvent event = resp.to(ProfileLikeNoticeEvent.class);
+            bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onProfileLikeNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
+        }
+
+        if (type == NotifyEventEnum.INPUT_STATUS) {
+            InputStatusNoticeEvent event = resp.to(InputStatusNoticeEvent.class);
+            bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onInputStatus(bot, event) == BotPlugin.MESSAGE_BLOCK);
+        }
     }
 
     /**
@@ -109,4 +139,53 @@ public class NotifyEvent {
         process(bot, resp, NotifyEventEnum.HONOR);
     }
 
+    /**
+     * 群名变更事件
+     *
+     * @param bot  {@link Bot}
+     * @param resp {@link JsonObjectWrapper}
+     */
+    public void groupName(Bot bot, JsonObjectWrapper resp) {
+        process(bot, resp, NotifyEventEnum.GROUP_NAME_CHANGE);
+    }
+
+    /**
+     * 群名变更事件
+     *
+     * @param bot  {@link Bot}
+     * @param resp {@link JsonObjectWrapper}
+     */
+    public void groupTitle(Bot bot, JsonObjectWrapper resp) {
+        process(bot, resp, NotifyEventEnum.GROUP_TITLE_CHANGE);
+    }
+
+    /**
+     * 灰条消息事件
+     *
+     * @param bot  {@link Bot}
+     * @param resp {@link JsonObjectWrapper}
+     */
+    public void grayTip(Bot bot, JsonObjectWrapper resp) {
+        process(bot, resp, NotifyEventEnum.GRAY_TIP);
+    }
+
+    /**
+     * 个人资料点赞事件
+     *
+     * @param bot  {@link Bot}
+     * @param resp {@link JsonObjectWrapper}
+     */
+    public void profileLike(Bot bot, JsonObjectWrapper resp) {
+        process(bot, resp, NotifyEventEnum.PROFILE_LIKE);
+    }
+
+    /**
+     * 输入状态事件
+     *
+     * @param bot  {@link Bot}
+     * @param resp {@link JsonObjectWrapper}
+     */
+    public void inputStatus(Bot bot, JsonObjectWrapper resp) {
+        process(bot, resp, NotifyEventEnum.INPUT_STATUS);
+    }
 }

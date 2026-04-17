@@ -195,6 +195,56 @@ public class BotPlugin {
     }
 
     /**
+     * 群名变更事件
+     *
+     * @param bot   {@link Bot}
+     * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
+     */
+    public int onGroupNameChangeNotice(Bot bot, GroupNameNoticeEvent event) {
+        return MESSAGE_IGNORE;
+    }
+
+    /**
+     * 群头衔变更事件
+     *
+     * @param bot   {@link Bot}
+     * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
+     */
+    public int onGroupTitleChangeNotice(Bot bot, GroupTitleNoticeEvent event) {
+        return MESSAGE_IGNORE;
+    }
+
+    /**
+     * 群灰条消息事件
+     *
+     * @param bot   {@link Bot}
+     * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
+     */
+    public int onGrayTipNotice(Bot bot, GroupGrayTipNoticeEvent event) {
+        return MESSAGE_IGNORE;
+    }
+
+    /**
+     * 个人资料点赞事件
+     *
+     * @param bot   {@link Bot}
+     * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
+     */
+    public int onProfileLikeNotice(Bot bot, ProfileLikeNoticeEvent event) {
+        return MESSAGE_IGNORE;
+    }
+
+    /**
+     * 输入状态事件
+     *
+     * @param bot   {@link Bot}
+     * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
+     */
+    public int onInputStatus(Bot bot, InputStatusNoticeEvent event) {
+        return MESSAGE_IGNORE;
+    }
+
+    /**
      * 群荣誉变动事件
      *
      * @param bot   {@link Bot}
@@ -290,6 +340,26 @@ public class BotPlugin {
      * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
      */
     public int onMessageReactionsUpdatedNotice(Bot bot, MessageReactionsUpdatedNoticeEvent event) {
+        return MESSAGE_IGNORE;
+    }
+
+    /**
+     * 精华消息
+     *
+     * @param bot   {@link Bot}
+     * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
+     */
+    public int onEssenceNotice(Bot bot, GroupEssenceNoticeEvent event) {
+        return MESSAGE_IGNORE;
+    }
+
+    /**
+     * 精华消息
+     *
+     * @param bot   {@link Bot}
+     * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
+     */
+    public int onOffline(Bot bot, BotOfflineEvent event) {
         return MESSAGE_IGNORE;
     }
 
