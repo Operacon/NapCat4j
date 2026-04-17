@@ -1,1 +1,2 @@
 fun.imiku.napcat4j.annotation.processor.MessageListenerAnnotationProcessor
+fun.imiku.napcat4j.annotation.processor.RequestListenerAnnotationProcessor

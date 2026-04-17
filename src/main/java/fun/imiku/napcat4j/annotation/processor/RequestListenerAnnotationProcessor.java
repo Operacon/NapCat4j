@@ -1,7 +1,7 @@
 package fun.imiku.napcat4j.annotation.processor;
 
-import fun.imiku.napcat4j.annotation.GroupMessageListener;
-import fun.imiku.napcat4j.annotation.PrivateMessageListener;
+import fun.imiku.napcat4j.annotation.FriendRequestListener;
+import fun.imiku.napcat4j.annotation.GroupRequestListener;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -27,20 +27,20 @@ import java.util.Set;
 /**
  * Validates listener annotation usage:
  * <ul>
- *   <li>{@link PrivateMessageListener}: class must implement {@code MessageListener<PrivateMessageEvent>}</li>
- *   <li>{@link GroupMessageListener}: class must implement {@code MessageListener<GroupMessageEvent>}</li>
+ *   <li>{@link FriendRequestListener}: class must implement {@code RequestListener<FriendAddRequestEvent>}</li>
+ *   <li>{@link GroupRequestListener}: class must implement {@code RequestListener<GroupAddRequestEvent>}</li>
  * </ul>
  */
 @SupportedAnnotationTypes({
-        "fun.imiku.napcat4j.annotation.PrivateMessageListener",
-        "fun.imiku.napcat4j.annotation.GroupMessageListener"
+        "fun.imiku.napcat4j.annotation.FriendRequestListener",
+        "fun.imiku.napcat4j.annotation.GroupRequestListener"
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_25)
-public class MessageListenerAnnotationProcessor extends AbstractProcessor {
+public class RequestListenerAnnotationProcessor extends AbstractProcessor {
 
-    private static final String MESSAGE_LISTENER_FQCN = "fun.imiku.napcat4j.listener.MessageListener";
-    private static final String PRIVATE_EVENT_FQCN = "com.mikuac.shiro.dto.event.message.PrivateMessageEvent";
-    private static final String GROUP_EVENT_FQCN = "com.mikuac.shiro.dto.event.message.GroupMessageEvent";
+    private static final String REQUEST_LISTENER_FQCN = "fun.imiku.napcat4j.listener.RequestListener";
+    private static final String FRIEND_EVENT_FQCN = "com.mikuac.shiro.dto.event.request.FriendAddRequestEvent";
+    private static final String GROUP_EVENT_FQCN = "com.mikuac.shiro.dto.event.request.GroupAddRequestEvent";
 
     private Types typeUtils;
     private Elements elementUtils;
@@ -54,8 +54,8 @@ public class MessageListenerAnnotationProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        validateAnnotatedTypes(roundEnv, PrivateMessageListener.class, PRIVATE_EVENT_FQCN, "@PrivateMessageListener");
-        validateAnnotatedTypes(roundEnv, GroupMessageListener.class, GROUP_EVENT_FQCN, "@GroupMessageListener");
+        validateAnnotatedTypes(roundEnv, FriendRequestListener.class, FRIEND_EVENT_FQCN, "@FriendRequestListener");
+        validateAnnotatedTypes(roundEnv, GroupRequestListener.class, GROUP_EVENT_FQCN, "@GroupRequestListener");
         return false;
     }
 
@@ -65,13 +65,13 @@ public class MessageListenerAnnotationProcessor extends AbstractProcessor {
             String expectedEventTypeFqcn,
             String annotationName
     ) {
-        TypeElement messageListenerType = elementUtils.getTypeElement(MESSAGE_LISTENER_FQCN);
+        TypeElement requestListenerType = elementUtils.getTypeElement(REQUEST_LISTENER_FQCN);
         TypeElement expectedEventType = elementUtils.getTypeElement(expectedEventTypeFqcn);
-        if (messageListenerType == null || expectedEventType == null) {
+        if (requestListenerType == null || expectedEventType == null) {
             return;
         }
 
-        TypeMirror messageListenerErasure = typeUtils.erasure(messageListenerType.asType());
+        TypeMirror requestListenerErasure = typeUtils.erasure(requestListenerType.asType());
         TypeMirror expectedEventErasure = typeUtils.erasure(expectedEventType.asType());
 
         for (Element element : roundEnv.getElementsAnnotatedWith(annotationType)) {
@@ -85,11 +85,11 @@ public class MessageListenerAnnotationProcessor extends AbstractProcessor {
             }
 
             TypeElement classElement = (TypeElement) element;
-            Optional<TypeMirror> listenerArg = findMessageListenerTypeArgument(classElement.asType(), messageListenerErasure);
+            Optional<TypeMirror> listenerArg = findRequestListenerTypeArgument(classElement.asType(), requestListenerErasure);
             if (listenerArg.isEmpty()) {
                 processingEnv.getMessager().printMessage(
                         Diagnostic.Kind.ERROR,
-                        annotationName + " requires implementing MessageListener<T extends MessageEvent>.",
+                        annotationName + " requires implementing RequestListener<T extends RequestEvent>.",
                         classElement
                 );
                 continue;
@@ -99,14 +99,14 @@ public class MessageListenerAnnotationProcessor extends AbstractProcessor {
             if (!typeUtils.isSameType(actualArgErasure, expectedEventErasure)) {
                 processingEnv.getMessager().printMessage(
                         Diagnostic.Kind.ERROR,
-                        annotationName + " requires MessageListener<" + expectedEventTypeFqcn + ">.",
+                        annotationName + " requires RequestListener<" + expectedEventTypeFqcn + ">.",
                         classElement
                 );
             }
         }
     }
 
-    private Optional<TypeMirror> findMessageListenerTypeArgument(TypeMirror root, TypeMirror messageListenerErasure) {
+    private Optional<TypeMirror> findRequestListenerTypeArgument(TypeMirror root, TypeMirror requestListenerErasure) {
         Queue<TypeMirror> queue = new ArrayDeque<>();
         Set<String> visited = new HashSet<>();
         queue.add(root);
@@ -120,7 +120,7 @@ public class MessageListenerAnnotationProcessor extends AbstractProcessor {
                 continue;
             }
 
-            if (typeUtils.isSameType(typeUtils.erasure(declaredType), messageListenerErasure)) {
+            if (typeUtils.isSameType(typeUtils.erasure(declaredType), requestListenerErasure)) {
                 if (!declaredType.getTypeArguments().isEmpty()) {
                     return Optional.of(declaredType.getTypeArguments().getFirst());
                 }
