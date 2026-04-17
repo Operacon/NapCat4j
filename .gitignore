@@ -42,3 +42,5 @@ out/
 dependencies/
 
 AGENTS.md
+.codex/
+.ai/
