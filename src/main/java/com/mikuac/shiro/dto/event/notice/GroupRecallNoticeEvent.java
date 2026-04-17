@@ -10,5 +10,5 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class GroupRecallNoticeEvent extends GroupMsgDeleteNoticeEvent{
+public class GroupRecallNoticeEvent extends GroupMsgDeleteNoticeEvent {
 }

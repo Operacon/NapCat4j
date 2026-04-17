@@ -2,7 +2,11 @@ package com.mikuac.shiro.handler;
 
 import com.mikuac.shiro.common.utils.JsonObjectWrapper;
 import com.mikuac.shiro.core.Bot;
-import com.mikuac.shiro.handler.event.*;
+import com.mikuac.shiro.handler.event.MessageEvent;
+import com.mikuac.shiro.handler.event.MetaEvent;
+import com.mikuac.shiro.handler.event.NoticeEvent;
+import com.mikuac.shiro.handler.event.NotifyEvent;
+import com.mikuac.shiro.handler.event.RequestEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;

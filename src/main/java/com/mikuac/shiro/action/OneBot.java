@@ -1,7 +1,19 @@
 package com.mikuac.shiro.action;
 
-import com.mikuac.shiro.dto.action.common.*;
-import com.mikuac.shiro.dto.action.response.*;
+import com.mikuac.shiro.dto.action.common.ActionData;
+import com.mikuac.shiro.dto.action.common.ActionList;
+import com.mikuac.shiro.dto.action.common.ActionRaw;
+import com.mikuac.shiro.dto.action.common.Anonymous;
+import com.mikuac.shiro.dto.action.common.MsgId;
+import com.mikuac.shiro.dto.action.response.BooleanResp;
+import com.mikuac.shiro.dto.action.response.FriendInfoResp;
+import com.mikuac.shiro.dto.action.response.GetStatusResp;
+import com.mikuac.shiro.dto.action.response.GroupHonorInfoResp;
+import com.mikuac.shiro.dto.action.response.GroupInfoResp;
+import com.mikuac.shiro.dto.action.response.GroupMemberInfoResp;
+import com.mikuac.shiro.dto.action.response.LoginInfoResp;
+import com.mikuac.shiro.dto.action.response.MsgResp;
+import com.mikuac.shiro.dto.action.response.StrangerInfoResp;
 import com.mikuac.shiro.dto.event.message.AnyMessageEvent;
 import com.mikuac.shiro.model.ArrayMsg;
 

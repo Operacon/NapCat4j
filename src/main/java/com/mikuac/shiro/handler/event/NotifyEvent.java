@@ -8,12 +8,13 @@ import com.mikuac.shiro.dto.event.notice.GroupGrayTipNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.GroupHonorChangeNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.GroupLuckyKingNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.GroupNameNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupPokeNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.GroupTitleNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.InputStatusNoticeEvent;
-import com.mikuac.shiro.dto.event.notice.PokeNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.ProfileLikeNoticeEvent;
 import com.mikuac.shiro.enums.NotifyEventEnum;
 import com.mikuac.shiro.handler.injection.InjectionHandler;
+import fun.imiku.napcat4j.dispatcher.NoticeEventDispatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,9 @@ public class NotifyEvent {
     public final Map<String, BiConsumer<Bot, JsonObjectWrapper>> handlers = new HashMap<>();
     private final EventUtils utils;
     private final InjectionHandler injection;
+
+    @Autowired
+    private NoticeEventDispatcher napcat4jDispatcher;
 
     @Autowired
     public NotifyEvent(EventUtils utils, InjectionHandler injection) {
@@ -62,7 +66,8 @@ public class NotifyEvent {
     @SuppressWarnings({"ResultOfMethodCallIgnored", "squid:S2201"})
     private void process(Bot bot, JsonObjectWrapper resp, NotifyEventEnum type) {
         if (type == NotifyEventEnum.POKE) {
-            PokeNoticeEvent event = resp.to(PokeNoticeEvent.class);
+            GroupPokeNoticeEvent event = resp.to(GroupPokeNoticeEvent.class);
+            napcat4jDispatcher.dispatch(bot, event);
             // 如果群号不为空则作为群内戳一戳处理
             if (event.getGroupId() != null && event.getGroupId() > 0L) {
                 injection.invokeGroupPokeNotice(bot, event);
@@ -85,26 +90,31 @@ public class NotifyEvent {
 
         if (type == NotifyEventEnum.GROUP_NAME_CHANGE) {
             GroupNameNoticeEvent event = resp.to(GroupNameNoticeEvent.class);
+            napcat4jDispatcher.dispatch(bot, event);
             bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onGroupNameChangeNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
         }
 
         if (type == NotifyEventEnum.GROUP_TITLE_CHANGE) {
             GroupTitleNoticeEvent event = resp.to(GroupTitleNoticeEvent.class);
+            napcat4jDispatcher.dispatch(bot, event);
             bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onGroupTitleChangeNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
         }
 
         if (type == NotifyEventEnum.GRAY_TIP) {
             GroupGrayTipNoticeEvent event = resp.to(GroupGrayTipNoticeEvent.class);
+            napcat4jDispatcher.dispatch(bot, event);
             bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onGrayTipNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
         }
 
         if (type == NotifyEventEnum.PROFILE_LIKE) {
             ProfileLikeNoticeEvent event = resp.to(ProfileLikeNoticeEvent.class);
+            napcat4jDispatcher.dispatch(bot, event);
             bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onProfileLikeNotice(bot, event) == BotPlugin.MESSAGE_BLOCK);
         }
 
         if (type == NotifyEventEnum.INPUT_STATUS) {
             InputStatusNoticeEvent event = resp.to(InputStatusNoticeEvent.class);
+            napcat4jDispatcher.dispatch(bot, event);
             bot.getPluginList().stream().anyMatch(o -> utils.getPlugin(o).onInputStatus(bot, event) == BotPlugin.MESSAGE_BLOCK);
         }
     }

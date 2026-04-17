@@ -77,10 +77,10 @@ public class MessageEventDispatcher {
     }
 
     private <T extends MessageEvent> void dispatchAsync(Bot bot, T event, ListenerBinding<T> binding, long now) {
+        if (!shouldProcessByTime(now, event, binding.ignoreSeconds())) {
+            return;
+        }
         virtualThreadExecutor.execute(() -> {
-            if (!shouldProcessByTime(now, event, binding.ignoreSeconds())) {
-                return;
-            }
             try {
                 T filteredEvent = binding.listener().filter(bot, event);
                 if (filteredEvent == null) {

@@ -69,7 +69,7 @@ public class RequestEventDispatcher {
                 }
                 binding.listener().process(bot, filteredEvent);
             } catch (Exception e) {
-                log.error("Request event consume failed listener={}, type={}",
+                log.error("消费请求事件失败 listener={}, type={}",
                         binding.listener().getClass().getName(), event.getRequestType(), e);
             }
         });

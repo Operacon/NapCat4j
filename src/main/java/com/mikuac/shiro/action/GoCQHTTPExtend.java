@@ -1,7 +1,29 @@
 package com.mikuac.shiro.action;
 
-import com.mikuac.shiro.dto.action.common.*;
-import com.mikuac.shiro.dto.action.response.*;
+import com.mikuac.shiro.dto.action.common.ActionData;
+import com.mikuac.shiro.dto.action.common.ActionList;
+import com.mikuac.shiro.dto.action.common.ActionRaw;
+import com.mikuac.shiro.dto.action.common.GuildMsgId;
+import com.mikuac.shiro.dto.action.common.MsgId;
+import com.mikuac.shiro.dto.action.response.ChannelInfoResp;
+import com.mikuac.shiro.dto.action.response.CheckUrlSafelyResp;
+import com.mikuac.shiro.dto.action.response.ClientsResp;
+import com.mikuac.shiro.dto.action.response.DownloadFileResp;
+import com.mikuac.shiro.dto.action.response.EssenceMsgResp;
+import com.mikuac.shiro.dto.action.response.GetGuildMsgResp;
+import com.mikuac.shiro.dto.action.response.GroupAtAllRemainResp;
+import com.mikuac.shiro.dto.action.response.GroupFilesResp;
+import com.mikuac.shiro.dto.action.response.GroupMemberInfoResp;
+import com.mikuac.shiro.dto.action.response.GuildListResp;
+import com.mikuac.shiro.dto.action.response.GuildMemberListResp;
+import com.mikuac.shiro.dto.action.response.GuildMemberProfileResp;
+import com.mikuac.shiro.dto.action.response.GuildMetaByGuestResp;
+import com.mikuac.shiro.dto.action.response.GuildServiceProfileResp;
+import com.mikuac.shiro.dto.action.response.OcrResp;
+import com.mikuac.shiro.dto.action.response.UnidirectionalFriendListResp;
+import com.mikuac.shiro.dto.action.response.UrlResp;
+import com.mikuac.shiro.dto.action.response.VersionInfoResp;
+import com.mikuac.shiro.dto.action.response.WordSlicesResp;
 import com.mikuac.shiro.dto.event.message.AnyMessageEvent;
 
 import java.util.List;

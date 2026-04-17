@@ -4,7 +4,32 @@ import com.mikuac.shiro.dto.event.message.AnyMessageEvent;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.mikuac.shiro.dto.event.message.GuildMessageEvent;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
-import com.mikuac.shiro.dto.event.notice.*;
+import com.mikuac.shiro.dto.event.notice.BotOfflineEvent;
+import com.mikuac.shiro.dto.event.notice.ChannelCreatedNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.ChannelDestroyedNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.ChannelUpdatedNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.FriendAddNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupAdminNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupBanNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupCardChangeNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupDecreaseNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupEssenceNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupGrayTipNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupHonorChangeNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupIncreaseNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupLuckyKingNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupMessageReactionNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupMsgDeleteNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupNameNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupTitleNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.GroupUploadNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.InputStatusNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.MessageEmojiLikeNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.MessageReactionsUpdatedNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.PokeNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.PrivateMsgDeleteNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.ProfileLikeNoticeEvent;
+import com.mikuac.shiro.dto.event.notice.ReceiveOfflineFilesNoticeEvent;
 import com.mikuac.shiro.dto.event.request.FriendAddRequestEvent;
 import com.mikuac.shiro.dto.event.request.GroupAddRequestEvent;
 import org.springframework.stereotype.Component;
@@ -197,7 +222,7 @@ public class BotPlugin {
     /**
      * 群名变更事件
      *
-     * @param bot   {@link Bot}
+     * @param bot {@link Bot}
      * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
      */
     public int onGroupNameChangeNotice(Bot bot, GroupNameNoticeEvent event) {
@@ -207,7 +232,7 @@ public class BotPlugin {
     /**
      * 群头衔变更事件
      *
-     * @param bot   {@link Bot}
+     * @param bot {@link Bot}
      * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
      */
     public int onGroupTitleChangeNotice(Bot bot, GroupTitleNoticeEvent event) {
@@ -217,7 +242,7 @@ public class BotPlugin {
     /**
      * 群灰条消息事件
      *
-     * @param bot   {@link Bot}
+     * @param bot {@link Bot}
      * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
      */
     public int onGrayTipNotice(Bot bot, GroupGrayTipNoticeEvent event) {
@@ -227,7 +252,7 @@ public class BotPlugin {
     /**
      * 个人资料点赞事件
      *
-     * @param bot   {@link Bot}
+     * @param bot {@link Bot}
      * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
      */
     public int onProfileLikeNotice(Bot bot, ProfileLikeNoticeEvent event) {
@@ -237,7 +262,7 @@ public class BotPlugin {
     /**
      * 输入状态事件
      *
-     * @param bot   {@link Bot}
+     * @param bot {@link Bot}
      * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
      */
     public int onInputStatus(Bot bot, InputStatusNoticeEvent event) {
@@ -346,7 +371,7 @@ public class BotPlugin {
     /**
      * 精华消息
      *
-     * @param bot   {@link Bot}
+     * @param bot {@link Bot}
      * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
      */
     public int onEssenceNotice(Bot bot, GroupEssenceNoticeEvent event) {
@@ -356,7 +381,7 @@ public class BotPlugin {
     /**
      * 精华消息
      *
-     * @param bot   {@link Bot}
+     * @param bot {@link Bot}
      * @return 是否执行下一个插件，MESSAGE_IGNORE 向下执行，MESSAGE_BLOCK 不向下执行
      */
     public int onOffline(Bot bot, BotOfflineEvent event) {
