@@ -20,6 +20,7 @@ import static com.mikuac.shiro.common.utils.CommonUtils.CMD_DEFAULT_VALUE;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface MessageHandlerFilter {
 
     /**
