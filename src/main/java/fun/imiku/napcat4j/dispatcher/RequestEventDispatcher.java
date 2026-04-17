@@ -49,12 +49,18 @@ public class RequestEventDispatcher {
     }
 
     public void dispatch(Bot bot, FriendAddRequestEvent event) {
+        if (friendListeners.isEmpty()) {
+            return;
+        }
         for (ListenerBinding<FriendAddRequestEvent> binding : friendListeners) {
             dispatchAsync(bot, event, binding);
         }
     }
 
     public void dispatch(Bot bot, GroupAddRequestEvent event) {
+        if (groupListeners.isEmpty()) {
+            return;
+        }
         for (ListenerBinding<GroupAddRequestEvent> binding : groupListeners) {
             dispatchAsync(bot, event, binding);
         }

@@ -53,6 +53,9 @@ public class MessageEventDispatcher {
             dispatchSent(bot, event);
             return;
         }
+        if (privateListeners.isEmpty()) {
+            return;
+        }
         long now = Instant.now().getEpochSecond();
         for (ListenerBinding<PrivateMessageEvent> binding : privateListeners) {
             dispatchAsync(bot, event, binding, now);
@@ -62,6 +65,9 @@ public class MessageEventDispatcher {
     public void dispatch(Bot bot, GroupMessageEvent event) {
         if (event.getPostType().equals("message_sent")) {
             dispatchSent(bot, event);
+            return;
+        }
+        if (groupListeners.isEmpty()) {
             return;
         }
         long now = Instant.now().getEpochSecond();

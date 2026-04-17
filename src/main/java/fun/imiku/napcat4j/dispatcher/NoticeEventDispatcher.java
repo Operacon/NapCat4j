@@ -212,6 +212,9 @@ public class NoticeEventDispatcher {
     }
 
     private <T extends NoticeEvent> void dispatch(Bot bot, T event, List<ListenerBinding<T>> listeners) {
+        if (listeners.isEmpty()) {
+            return;
+        }
         long now = Instant.now().getEpochSecond();
         for (ListenerBinding<T> binding : listeners) {
             dispatchAsync(bot, event, binding, now);

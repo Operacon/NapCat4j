@@ -8,6 +8,7 @@ import com.mikuac.shiro.dto.event.meta.LifecycleMetaEvent;
 import com.mikuac.shiro.enums.MetaEventEnum;
 import com.mikuac.shiro.enums.NotifyEventEnum;
 import com.mikuac.shiro.handler.injection.InjectionHandler;
+import fun.imiku.napcat4j.dispatcher.MetaEventDispatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,9 @@ public class MetaEvent {
      */
     public final Map<String, BiConsumer<Bot, JsonObjectWrapper>> handlers = new HashMap<>();
     private final InjectionHandler injection;
+
+    @Autowired
+    private MetaEventDispatcher napcat4jDispatcher;
 
     @Autowired
     public MetaEvent(InjectionHandler injectionHandler) {
@@ -65,11 +69,13 @@ public class MetaEvent {
         switch (type) {
             case HEARTBEAT -> {
                 HeartbeatMetaEvent event = resp.to(HeartbeatMetaEvent.class);
+                napcat4jDispatcher.dispatch(bot, event);
                 ConnectionUtils.recordMetaHeartbeat(bot.getSession(), event);
                 injection.invokeHeartbeat(bot, event);
             }
             case LIFECYCLE -> {
                 LifecycleMetaEvent event = resp.to(LifecycleMetaEvent.class);
+                napcat4jDispatcher.dispatch(bot, event);
                 injection.invokeLifecycle(bot, event);
             }
             default -> {
