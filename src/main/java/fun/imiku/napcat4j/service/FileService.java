@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
  * 文件相关服务
  */
 @Service
+@SuppressWarnings("unused")
 public class FileService {
 
     private final ApiPostService apiPostService;

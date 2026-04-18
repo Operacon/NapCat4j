@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
  * 账号相关服务
  */
 @Service
+@SuppressWarnings("unused")
 public class AccountService {
 
     private final ApiPostService apiPostService;

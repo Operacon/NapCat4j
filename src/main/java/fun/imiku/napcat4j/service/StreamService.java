@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
  * 流式操作服务
  */
 @Service
+@SuppressWarnings("unused")
 public class StreamService {
 
     private final ApiPostService apiPostService;

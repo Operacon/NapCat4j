@@ -19,6 +19,8 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.Executor;
 
 /**
@@ -29,7 +31,7 @@ import java.util.concurrent.Executor;
 public class ApiPostService {
 
     private static final String EMPTY_JSON_BODY = "{}";
-    public static final Executor VIRTUAL_THREAD_EXECUTOR = Thread::startVirtualThread;
+    private static final Executor VIRTUAL_THREAD_EXECUTOR = Thread::startVirtualThread;
 
     private final HttpClient httpClient;
     private final String[] defaultHeaders;
@@ -68,17 +70,30 @@ public class ApiPostService {
     /**
      * 响应体反序列化
      */
-    public static <T> T parseResponse(HttpResponse<String> resp, Class<T> clazz) {
+    public static <T extends BaseResponse<?>> T parseResponse(HttpResponse<String> resp, Class<T> clazz) {
         try {
-            BaseResponse r = (BaseResponse) objectMapper.readValue(resp.body(), clazz);
+            T r = objectMapper.readValue(resp.body(), clazz);
             if (r.getRetcode() != 0) {
                 log.error("API 调用异常，状态: {} ; message: {} ; wording: {}", r.getRetcode(), r.getMessage(), r.getWording());
                 throw new RuntimeException();
             }
-            return (T) r;
+            return r;
         } catch (Exception e) {
-            throw new RuntimeException("API 调用将 " + resp.body() + " 反序列化为 " + clazz.getName() + " 失败");
+            throw new RuntimeException("API 调用将 " + resp.body() + " 反序列化为 " + clazz.getName() + " 失败", e);
         }
+    }
+
+    /**
+     * 基于虚拟线程异步调用
+     */
+    public static <T> CompletableFuture<T> supplyAsyncWithCatch(ThrowingSupplier<T> supplier) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return supplier.get();
+            } catch (IOException | InterruptedException e) {
+                throw new CompletionException(e);
+            }
+        }, VIRTUAL_THREAD_EXECUTOR);
     }
 
     private String serializeBody(Object body) throws IOException {
@@ -103,5 +118,10 @@ public class ApiPostService {
                 HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE,
                 HttpHeaders.AUTHORIZATION, "Bearer " + properties.accessToken()
         };
+    }
+
+    @FunctionalInterface
+    public interface ThrowingSupplier<T> {
+        T get() throws IOException, InterruptedException;
     }
 }

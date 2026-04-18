@@ -12,7 +12,14 @@ public enum NapCatApiPath {
     GET_GROUP_MEMBER_INFO("/get_group_member_info"),
     SET_GROUP_BAN("/set_group_ban"),
     SET_GROUP_WHOLE_BAN("/set_group_whole_ban"),
-    DEL_GROUP_ALBUM_MEDIA("/del_group_album_media");
+    DEL_GROUP_ALBUM_MEDIA("/del_group_album_media"),
+    SET_GROUP_ALBUM_MEDIA_LIKE("/set_group_album_media_like"),
+    DO_GROUP_ALBUM_COMMENT("/do_group_album_comment"),
+    GET_GROUP_ALBUM_MEDIA_LIST("/get_group_album_media_list"),
+    GET_QUN_ALBUM_LIST("/get_qun_album_list"),
+    UPLOAD_IMAGE_TO_QUN_ALBUM("/upload_image_to_qun_album"),
+    SET_GROUP_SIGN("/set_group_sign"),
+    SEND_GROUP_SIGN("/send_group_sign");
 
     private final String path;
 
