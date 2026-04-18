@@ -1,17 +1,25 @@
 package fun.imiku.napcat4j.service;
 
-import com.mikuac.shiro.core.Bot;
 import fun.imiku.napcat4j.component.ApiPostService;
 import fun.imiku.napcat4j.component.NapCatApiPath;
 import fun.imiku.napcat4j.dto.request.DelGroupAlbumMediaRequest;
+import fun.imiku.napcat4j.dto.request.FriendPokeRequest;
 import fun.imiku.napcat4j.dto.request.GetGroupMemberInfoRequest;
 import fun.imiku.napcat4j.dto.request.GroupPokeRequest;
+import fun.imiku.napcat4j.dto.request.SendPokeRequest;
+import fun.imiku.napcat4j.dto.request.SetGroupBanRequest;
 import fun.imiku.napcat4j.dto.response.DelGroupAlbumMediaResponse;
+import fun.imiku.napcat4j.dto.response.FriendPokeResponse;
 import fun.imiku.napcat4j.dto.response.GetGroupDetailInfoResponse;
+import fun.imiku.napcat4j.dto.response.GetGroupInfoExResponse;
+import fun.imiku.napcat4j.dto.response.GetGroupInfoResponse;
 import fun.imiku.napcat4j.dto.response.GetGroupListResponse;
 import fun.imiku.napcat4j.dto.response.GetGroupMemberInfoResponse;
 import fun.imiku.napcat4j.dto.response.GetGroupMemberListResponse;
 import fun.imiku.napcat4j.dto.response.GroupPokeResponse;
+import fun.imiku.napcat4j.dto.response.SendPokeResponse;
+import fun.imiku.napcat4j.dto.response.SetGroupBanResponse;
+import fun.imiku.napcat4j.dto.response.SetGroupWholeBanResponse;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -41,9 +49,25 @@ public class GroupService {
     }
 
     /**
+     * 发送戳一戳
+     */
+    public FriendPokeResponse friendPoke(FriendPokeRequest request) throws IOException, InterruptedException {
+        HttpResponse<String> resp = apiPostService.postJson(NapCatApiPath.FRIEND_POKE, request);
+        return ApiPostService.parseResponse(resp, FriendPokeResponse.class);
+    }
+
+    /**
+     * 发送戳一戳
+     */
+    public SendPokeResponse sendPoke(SendPokeRequest request) throws IOException, InterruptedException {
+        HttpResponse<String> resp = apiPostService.postJson(NapCatApiPath.SEND_POKE, request);
+        return ApiPostService.parseResponse(resp, SendPokeResponse.class);
+    }
+
+    /**
      * 获取群详细信息
      */
-    public GetGroupDetailInfoResponse getGroupDetailInfo(Bot bot, Long groupId) throws IOException, InterruptedException {
+    public GetGroupDetailInfoResponse getGroupDetailInfo(Long groupId) throws IOException, InterruptedException {
         Map<String, Object> body = new HashMap<>();
         body.put("group_id", groupId);
 
@@ -54,10 +78,10 @@ public class GroupService {
     /**
      * 异步获取群详细信息
      */
-    public CompletableFuture<GetGroupDetailInfoResponse> getGroupDetailInfoAsync(Bot bot, Long groupId) {
+    public CompletableFuture<GetGroupDetailInfoResponse> getGroupDetailInfoAsync(Long groupId) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return getGroupDetailInfo(bot, groupId);
+                return getGroupDetailInfo(groupId);
             } catch (IOException | InterruptedException e) {
                 throw new CompletionException(e);
             }
@@ -67,7 +91,7 @@ public class GroupService {
     /**
      * 获取群列表
      */
-    public GetGroupListResponse getGroupList(Bot bot, Boolean noCache) throws IOException, InterruptedException {
+    public GetGroupListResponse getGroupList(Boolean noCache) throws IOException, InterruptedException {
         Map<String, Object> body = new HashMap<>();
         body.put("no_cache", noCache);
 
@@ -78,10 +102,10 @@ public class GroupService {
     /**
      * 异步获取群列表
      */
-    public CompletableFuture<GetGroupListResponse> getGroupListAsync(Bot bot, Boolean noCache) {
+    public CompletableFuture<GetGroupListResponse> getGroupListAsync(Boolean noCache) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return getGroupList(bot, noCache);
+                return getGroupList(noCache);
             } catch (IOException | InterruptedException e) {
                 throw new CompletionException(e);
             }
@@ -89,9 +113,77 @@ public class GroupService {
     }
 
     /**
+     * 获取群信息
+     */
+    public GetGroupInfoResponse getGroupInfo(Long groupId) throws IOException, InterruptedException {
+        Map<String, Object> body = new HashMap<>();
+        body.put("group_id", groupId);
+
+        HttpResponse<String> resp = apiPostService.postJson(NapCatApiPath.GET_GROUP_INFO, body);
+        return ApiPostService.parseResponse(resp, GetGroupInfoResponse.class);
+    }
+
+    /**
+     * 异步获取群信息
+     */
+    public CompletableFuture<GetGroupInfoResponse> getGroupInfoAsync(Long groupId) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return getGroupInfo(groupId);
+            } catch (IOException | InterruptedException e) {
+                throw new CompletionException(e);
+            }
+        }, ApiPostService.VIRTUAL_THREAD_EXECUTOR);
+    }
+
+    /**
+     * 获取群详细信息（扩展）
+     */
+    public GetGroupInfoExResponse getGroupInfoEx(Long groupId) throws IOException, InterruptedException {
+        Map<String, Object> body = new HashMap<>();
+        body.put("group_id", groupId);
+
+        HttpResponse<String> resp = apiPostService.postJson(NapCatApiPath.GET_GROUP_INFO_EX, body);
+        return ApiPostService.parseResponse(resp, GetGroupInfoExResponse.class);
+    }
+
+    /**
+     * 异步获取群详细信息（扩展）
+     */
+    public CompletableFuture<GetGroupInfoExResponse> getGroupInfoExAsync(Long groupId) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return getGroupInfoEx(groupId);
+            } catch (IOException | InterruptedException e) {
+                throw new CompletionException(e);
+            }
+        }, ApiPostService.VIRTUAL_THREAD_EXECUTOR);
+    }
+
+    /**
+     * 群组禁言
+     */
+    public SetGroupBanResponse setGroupBan(SetGroupBanRequest request) throws IOException, InterruptedException {
+        HttpResponse<String> resp = apiPostService.postJson(NapCatApiPath.SET_GROUP_BAN, request);
+        return ApiPostService.parseResponse(resp, SetGroupBanResponse.class);
+    }
+
+    /**
+     * 全员禁言
+     */
+    public SetGroupWholeBanResponse setGroupWholeBan(Long groupId, Object enable) throws IOException, InterruptedException {
+        Map<String, Object> body = new HashMap<>();
+        body.put("group_id", groupId);
+        body.put("enable", enable);
+
+        HttpResponse<String> resp = apiPostService.postJson(NapCatApiPath.SET_GROUP_WHOLE_BAN, body);
+        return ApiPostService.parseResponse(resp, SetGroupWholeBanResponse.class);
+    }
+
+    /**
      * 获取群成员列表
      */
-    public GetGroupMemberListResponse getGroupMemberList(Bot bot, Long groupId, Boolean noCache) throws IOException, InterruptedException {
+    public GetGroupMemberListResponse getGroupMemberList(Long groupId, Boolean noCache) throws IOException, InterruptedException {
         Map<String, Object> body = new HashMap<>();
         body.put("group_id", groupId);
         body.put("no_cache", noCache);
@@ -103,10 +195,10 @@ public class GroupService {
     /**
      * 异步获取群成员列表
      */
-    public CompletableFuture<GetGroupMemberListResponse> getGroupMemberListAsync(Bot bot, Long groupId, Boolean noCache) {
+    public CompletableFuture<GetGroupMemberListResponse> getGroupMemberListAsync(Long groupId, Boolean noCache) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return getGroupMemberList(bot, groupId, noCache);
+                return getGroupMemberList(groupId, noCache);
             } catch (IOException | InterruptedException e) {
                 throw new CompletionException(e);
             }

@@ -14,7 +14,7 @@ import org.jspecify.annotations.Nullable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupPokeRequest {
+public class FriendPokeRequest {
 
     /**
      * 群号
