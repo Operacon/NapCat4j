@@ -19,7 +19,17 @@ public enum NapCatApiPath {
     GET_QUN_ALBUM_LIST("/get_qun_album_list"),
     UPLOAD_IMAGE_TO_QUN_ALBUM("/upload_image_to_qun_album"),
     SET_GROUP_SIGN("/set_group_sign"),
-    SEND_GROUP_SIGN("/send_group_sign");
+    SEND_GROUP_SIGN("/send_group_sign"),
+    FORWARD_FRIEND_SINGLE_MSG("/forward_friend_single_msg"),
+    FORWARD_GROUP_SINGLE_MSG("/forward_group_single_msg"),
+    MARK_GROUP_MSG_AS_READ("/mark_group_msg_as_read"),
+    MARK_PRIVATE_MSG_AS_READ("/mark_private_msg_as_read"),
+    GET_MSG("/get_msg"),
+    SEND_PRIVATE_MSG("/send_private_msg"),
+    SEND_MSG("/send_msg"),
+    DELETE_MSG("/delete_msg"),
+    MARK_MSG_AS_READ("/mark_msg_as_read"),
+    MARK_ALL_AS_READ("/_mark_all_as_read");
 
     private final String path;
 

@@ -142,3 +142,73 @@
 - API 文档链接：[群打卡](https://napcat.apifox.cn/230897177e0.md)
 - 所在 Service：`GroupService`
 - 方法：`sendGroupSign()` / `sendGroupSignAsync()`
+
+#### 发送消息
+
+- API 路径：`/send_msg`
+- API 文档链接：[发送消息](https://napcat.apifox.cn/226656652e0.md)
+- 所在 Service：`MessageService`
+- 方法：`sendMsg()` / `sendMsgAsync()`
+
+#### 撤回消息
+
+- API 路径：`/delete_msg`
+- API 文档链接：[撤回消息](https://napcat.apifox.cn/226919954e0.md)
+- 所在 Service：`MessageService`
+- 方法：`deleteMsg()`
+
+#### 获取消息
+
+- API 路径：`/get_msg`
+- API 文档链接：[获取消息](https://napcat.apifox.cn/226656707e0.md)
+- 所在 Service：`MessageService`
+- 方法：`getMsg()` / `getMsgAsync()`
+
+#### 发送私聊消息
+
+- API 路径：`/send_private_msg`
+- API 文档链接：[发送私聊消息](https://napcat.apifox.cn/226656553e0.md)
+- 所在 Service：`MessageService`
+- 方法：`sendPrivateMsg()` / `sendPrivateMsgAsync()`
+
+#### 转发单条消息（好友）
+
+- API 路径：`/forward_friend_single_msg`
+- API 文档链接：[转发单条消息](https://napcat.apifox.cn/226659051e0.md)
+- 所在 Service：`MessageService`
+- 方法：`forwardFriendSingleMsg()` / `forwardFriendSingleMsgAsync()`
+
+#### 转发单条消息（群）
+
+- API 路径：`/forward_group_single_msg`
+- API 文档链接：[转发单条消息](https://napcat.apifox.cn/226659074e0.md)
+- 所在 Service：`MessageService`
+- 方法：`forwardGroupSingleMsg()` / `forwardGroupSingleMsgAsync()`
+
+#### 标记群聊已读
+
+- API 路径：`/mark_group_msg_as_read`
+- API 文档链接：[标记群聊已读](https://napcat.apifox.cn/226659167e0.md)
+- 所在 Service：`MessageService`
+- 方法：`markGroupMsgAsRead()`
+
+#### 标记私聊已读
+
+- API 路径：`/mark_private_msg_as_read`
+- API 文档链接：[标记私聊已读](https://napcat.apifox.cn/226659165e0.md)
+- 所在 Service：`MessageService`
+- 方法：`markPrivateMsgAsRead()`
+
+#### 标记消息已读（Go-CQHTTP）
+
+- API 路径：`/mark_msg_as_read`
+- API 文档链接：[标记消息已读 (Go-CQHTTP)](https://napcat.apifox.cn/226657389e0.md)
+- 所在 Service：`MessageService`
+- 方法：`markMsgAsRead()`
+
+#### 标记所有消息已读
+
+- API 路径：`/_mark_all_as_read`
+- API 文档链接：[标记所有消息已读](https://napcat.apifox.cn/226659194e0.md)
+- 所在 Service：`MessageService`
+- 方法：`markAllAsRead()`
