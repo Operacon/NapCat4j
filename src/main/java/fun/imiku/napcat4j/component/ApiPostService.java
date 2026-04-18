@@ -1,10 +1,13 @@
 package fun.imiku.napcat4j.component;
 
+import com.mikuac.shiro.common.utils.JsonUtils;
 import fun.imiku.napcat4j.config.NapCatApiProperties;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URI;
@@ -25,6 +28,7 @@ public class ApiPostService {
 
     private final HttpClient httpClient;
     private final String[] defaultHeaders;
+    private static final ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 
     private final String baseUrl;
     private final Map<NapCatApiPath, URI> uriCache;
@@ -45,24 +49,49 @@ public class ApiPostService {
     /**
      * 发送通用 JSON POST 请求
      */
-    public HttpResponse<String> postJson(NapCatApiPath path, String body) throws IOException, InterruptedException {
+    public HttpResponse<String> postJson(NapCatApiPath path, Object body) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(Objects.requireNonNull(
                         uriCache.computeIfAbsent(path, p -> URI.create(baseUrl + p)),
                         "uri 不能为空"))
                 .headers(defaultHeaders)
-                .POST(HttpRequest.BodyPublishers.ofString(body == null ? EMPTY_JSON_BODY : body))
+                .POST(HttpRequest.BodyPublishers.ofString(serializeBody(body)))
                 .build();
         return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    private String[] buildDefaultHeaders(NapCatApiProperties properties) {
+    /**
+     * 响应体反序列化
+     */
+    public static <T> T parseResponse(HttpResponse<String> resp, Class<T> clazz) {
+        try {
+            return objectMapper.readValue(resp.body(), clazz);
+        } catch (Exception e) {
+            throw new RuntimeException("API 调用将 " + resp.body() + " 反序列化为 " + clazz.getName() + " 失败");
+        }
+    }
+
+    private String serializeBody(Object body) throws IOException {
+        if (body == null) {
+            return EMPTY_JSON_BODY;
+        }
+        if (body instanceof String json) {
+            return json;
+        }
+        try {
+            return objectMapper.writeValueAsString(body);
+        } catch (JacksonException e) {
+            throw new IOException("JSON serialize failed", e);
+        }
+    }
+
+    private static String[] buildDefaultHeaders(NapCatApiProperties properties) {
         if (!properties.hasAccessToken()) {
             return new String[]{HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE};
         }
         return new String[]{
                 HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE,
-                HttpHeaders.AUTHORIZATION, properties.accessToken()
+                HttpHeaders.AUTHORIZATION, "Bearer " + properties.accessToken()
         };
     }
 }
