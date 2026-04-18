@@ -45,15 +45,17 @@ public class NoticeEvent {
     private final EventUtils utils;
     private final NotifyEvent notify;
     private final InjectionHandler injection;
+    private final NoticeEventDispatcher napcat4jDispatcher;
 
     @Autowired
-    private NoticeEventDispatcher napcat4jDispatcher;
-
-    @Autowired
-    public NoticeEvent(EventUtils eventUtils, NotifyEvent notifyEvent, InjectionHandler injectionHandler) {
+    public NoticeEvent(
+            EventUtils eventUtils, NotifyEvent notifyEvent, InjectionHandler injectionHandler,
+            NoticeEventDispatcher napcat4jDispatcher
+    ) {
         this.utils = eventUtils;
         this.notify = notifyEvent;
         this.injection = injectionHandler;
+        this.napcat4jDispatcher = napcat4jDispatcher;
     }
 
     /**

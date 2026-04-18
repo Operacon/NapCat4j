@@ -36,18 +36,18 @@ public class MessageEvent {
     private final ShiroProperties shiroProperties;
     private final BotContainer botContainer;
     private final InjectionHandler injection;
-
-    @Autowired
-    private MessageEventDispatcher napcat4jDispatcher;
+    private final MessageEventDispatcher napcat4jDispatcher;
 
     @Autowired
     public MessageEvent(
-            EventUtils utils, ShiroProperties shiroProperties, BotContainer botContainer, InjectionHandler injection
+            EventUtils utils, ShiroProperties shiroProperties, BotContainer botContainer, InjectionHandler injection,
+            MessageEventDispatcher napcat4jDispatcher
     ) {
         this.utils = utils;
         this.shiroProperties = shiroProperties;
         this.botContainer = botContainer;
         this.injection = injection;
+        this.napcat4jDispatcher = napcat4jDispatcher;
     }
 
     /**

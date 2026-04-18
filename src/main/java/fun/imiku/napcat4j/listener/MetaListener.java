@@ -22,6 +22,6 @@ public interface MetaListener<T extends MetaEvent> {
     /**
      * 元事件处理逻辑。
      */
-    void process(Bot bot, T event);
+    void process(Bot bot, T event) throws Exception;
 }
 

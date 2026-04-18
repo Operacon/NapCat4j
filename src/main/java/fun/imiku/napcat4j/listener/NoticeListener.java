@@ -22,5 +22,5 @@ public interface NoticeListener<T extends NoticeEvent> {
     /**
      * 通知事件处理逻辑。
      */
-    void process(Bot bot, T event);
+    void process(Bot bot, T event) throws Exception;
 }

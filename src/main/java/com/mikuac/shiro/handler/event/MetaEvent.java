@@ -29,12 +29,12 @@ public class MetaEvent {
     public final Map<String, BiConsumer<Bot, JsonObjectWrapper>> handlers = new HashMap<>();
     private final InjectionHandler injection;
 
-    @Autowired
-    private MetaEventDispatcher napcat4jDispatcher;
+    private final MetaEventDispatcher napcat4jDispatcher;
 
     @Autowired
-    public MetaEvent(InjectionHandler injectionHandler) {
+    public MetaEvent(InjectionHandler injectionHandler, MetaEventDispatcher napcat4jDispatcher) {
         this.injection = injectionHandler;
+        this.napcat4jDispatcher = napcat4jDispatcher;
     }
 
     /**

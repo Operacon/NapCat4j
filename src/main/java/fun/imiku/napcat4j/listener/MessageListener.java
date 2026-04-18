@@ -22,5 +22,5 @@ public interface MessageListener<T extends MessageEvent> {
     /**
      * 消息处理逻辑
      */
-    void process(Bot bot, T event);
+    void process(Bot bot, T event) throws Exception;
 }

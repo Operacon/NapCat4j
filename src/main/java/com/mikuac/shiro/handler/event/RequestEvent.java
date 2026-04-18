@@ -28,14 +28,15 @@ public class RequestEvent {
     public final Map<String, BiConsumer<Bot, JsonObjectWrapper>> handlers = new HashMap<>();
     private final EventUtils utils;
     private final InjectionHandler injection;
+    private final RequestEventDispatcher napcat4jDispatcher;
 
     @Autowired
-    private RequestEventDispatcher napcat4jDispatcher;
-
-    @Autowired
-    public RequestEvent(EventUtils eventUtils, InjectionHandler injectionHandler) {
+    public RequestEvent(
+            EventUtils eventUtils, InjectionHandler injectionHandler, RequestEventDispatcher napcat4jDispatcher
+    ) {
         this.utils = eventUtils;
         this.injection = injectionHandler;
+        this.napcat4jDispatcher = napcat4jDispatcher;
     }
 
     /**

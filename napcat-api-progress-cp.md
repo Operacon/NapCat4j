@@ -1,0 +1,243 @@
+## api
+- 根目录 > 群组扩展 [删除群相册媒体](https://napcat.apifox.cn/395455119e0.md): 路径: `/del_group_album_media`
+- 根目录 > 群组扩展 [点赞群相册媒体](https://napcat.apifox.cn/395457331e0.md): 路径: `/set_group_album_media_like`
+- 根目录 > 群组扩展 [发表群相册评论](https://napcat.apifox.cn/395458911e0.md): 路径: `/do_group_album_comment`
+- 根目录 > 群组扩展 [获取群相册媒体列表](https://napcat.apifox.cn/395459066e0.md): 路径: `/get_group_album_media_list`
+- 根目录 > 群组扩展 [获取群相册列表](https://napcat.apifox.cn/395460287e0.md): 路径: `/get_qun_album_list`
+- 根目录 > 群组扩展 [上传图片到群相册](https://napcat.apifox.cn/395459739e0.md): 路径: `/upload_image_to_qun_album`
+- 根目录 > 群组扩展 [设置群加群选项](https://napcat.apifox.cn/301542178e0.md): 路径: `/set_group_add_option`
+- 根目录 > 群组扩展 [设置群机器人加群选项](https://napcat.apifox.cn/301542198e0.md): 路径: `/set_group_robot_add_option`
+- 根目录 > 群组扩展 [设置群搜索选项](https://napcat.apifox.cn/301542170e0.md): 路径: `/set_group_search`
+- 根目录 > 群组扩展 [设置群备注](https://napcat.apifox.cn/283136268e0.md): 路径: `/set_group_remark`；设置群备注
+- 根目录 > 群组扩展 [获取群详细信息 (扩展)](https://napcat.apifox.cn/226659229e0.md): 路径: `/get_group_info_ex`
+- 根目录 > 群组扩展 [群打卡](https://napcat.apifox.cn/226659329e0.md): 路径: `/set_group_sign`
+- 根目录 > 群组扩展 [群打卡](https://napcat.apifox.cn/230897177e0.md): 路径: `/send_group_sign`
+- 根目录 > 核心接口 [设置群待办](https://napcat.apifox.cn/395460568e0.md): 路径: `/set_group_todo`；将指定消息设置为群待办
+- 根目录 > 核心接口 [发送戳一戳](https://napcat.apifox.cn/226659265e0.md): 路径: `/group_poke`；在群聊或私聊中发送戳一戳动作
+- 根目录 > 核心接口 [完成群待办](https://napcat.apifox.cn/444247697e0.md): 路径: `/complete_group_todo`；将指定消息对应的群待办标记为已完成
+- 根目录 > 核心接口 [发送戳一戳](https://napcat.apifox.cn/226659255e0.md): 路径: `/friend_poke`；在群聊或私聊中发送戳一戳动作
+- 根目录 > 核心接口 [发送戳一戳](https://napcat.apifox.cn/250286923e0.md): 路径: `/send_poke`；在群聊或私聊中发送戳一戳动作
+- 根目录 > 核心接口 [取消群待办](https://napcat.apifox.cn/444247698e0.md): 路径: `/cancel_group_todo`；将指定消息对应的群待办取消
+- 根目录 > 群组接口 [获取群详细信息](https://napcat.apifox.cn/307180859e0.md): 路径: `/get_group_detail_info`；获取群聊的详细信息，包括成员数、最大成员数等
+- 根目录 > 群组接口 [获取群列表](https://napcat.apifox.cn/226656992e0.md): 路径: `/get_group_list`；获取当前帐号的群聊列表
+- 根目录 > 群组接口 [获取群信息](https://napcat.apifox.cn/226656979e0.md): 路径: `/get_group_info`；获取群聊的基本信息
+- 根目录 > 群组接口 [获取群成员列表](https://napcat.apifox.cn/226657034e0.md): 路径: `/get_group_member_list`；获取群聊中的所有成员列表
+- 根目录 > 群组接口 [获取群成员信息](https://napcat.apifox.cn/226657019e0.md): 路径: `/get_group_member_info`；获取群聊中指定成员的信息
+- 根目录 > 群组接口 [发送群消息](https://napcat.apifox.cn/226656598e0.md): 路径: `/send_group_msg`；发送群消息
+- 根目录 > 群组接口 [处理加群请求](https://napcat.apifox.cn/226656947e0.md): 路径: `/set_group_add_request`；同意或拒绝加群请求或邀请
+- 根目录 > 群组接口 [退出群组](https://napcat.apifox.cn/226656926e0.md): 路径: `/set_group_leave`；退出或解散指定群聊
+- 根目录 > 群组接口 [全员禁言](https://napcat.apifox.cn/226656802e0.md): 路径: `/set_group_whole_ban`；开启或关闭指定群聊的全员禁言
+- 根目录 > 群组接口 [群组禁言](https://napcat.apifox.cn/226656791e0.md): 路径: `/set_group_ban`；禁言群聊中的指定成员
+- 根目录 > 群组接口 [群组踢人](https://napcat.apifox.cn/226656748e0.md): 路径: `/set_group_kick`；将指定成员踢出群聊
+- 根目录 > 群组接口 [设置群管理员](https://napcat.apifox.cn/226656815e0.md): 路径: `/set_group_admin`；设置或取消群聊中的管理员
+- 根目录 > 群组接口 [设置群名称](https://napcat.apifox.cn/226656919e0.md): 路径: `/set_group_name`；修改指定群聊的名称
+- 根目录 > 群组接口 [设置群名片](https://napcat.apifox.cn/226656913e0.md): 路径: `/set_group_card`；设置群聊中指定成员的群名片
+- 根目录 > 群组接口 [获取群公告](https://napcat.apifox.cn/226658742e0.md): 路径: `/_get_group_notice`；获取指定群聊中的公告列表
+- 根目录 > 群组接口 [获取群精华消息](https://napcat.apifox.cn/226658664e0.md): 路径: `/get_essence_msg_list`；获取指定群聊中的精华消息列表
+- 根目录 > 群组接口 [获取群忽略通知](https://napcat.apifox.cn/226659323e0.md): 路径: `/get_group_ignored_notifies`；获取被忽略的入群申请和邀请通知
+- 根目录 > 群组接口 [移出精华消息](https://napcat.apifox.cn/226658678e0.md): 路径: `/delete_essence_msg`；将一条消息从群精华消息列表中移出
+- 根目录 > 群组接口 [设置精华消息](https://napcat.apifox.cn/226658674e0.md): 路径: `/set_essence_msg`；将一条消息设置为群精华消息
+- 根目录 > 群组接口 [删除群公告](https://napcat.apifox.cn/226659240e0.md): 路径: `/_del_group_notice`；删除群聊中的公告
+- 根目录 > 群组接口 [获取群禁言列表](https://napcat.apifox.cn/226659300e0.md): 路径: `/get_group_shut_list`
+- 根目录 > 群组接口 [获取群被忽略的加群请求](https://napcat.apifox.cn/226659234e0.md): 路径: `/get_group_ignore_add_request`
+- 根目录 > 扩展接口 [批量踢出群成员](https://napcat.apifox.cn/301542209e0.md): 路径: `/set_group_kick_members`；从指定群聊中批量踢出多个成员
+- 根目录 > 扩展接口 [创建收藏](https://napcat.apifox.cn/226659178e0.md): 路径: `/create_collection`
+- 根目录 > 扩展接口 [设置个性签名](https://napcat.apifox.cn/226659186e0.md): 路径: `/set_self_longnick`；修改当前登录帐号的个性签名
+- 根目录 > 扩展接口 [设置QQ头像](https://napcat.apifox.cn/226658980e0.md): 路径: `/set_qq_avatar`；修改当前账号的QQ头像
+- 根目录 > 扩展接口 [英文单词翻译](https://napcat.apifox.cn/226659102e0.md): 路径: `/translate_en2zh`；将英文单词列表翻译为中文
+- 根目录 > 扩展接口 [获取ClientKey](https://napcat.apifox.cn/250286915e0.md): 路径: `/get_clientkey`；获取当前登录帐号的ClientKey
+- 根目录 > 扩展接口 [图片 OCR 识别](https://napcat.apifox.cn/226658231e0.md): 路径: `/ocr_image`；识别图片中的文字内容(仅Windows端支持)
+- 根目录 > 扩展接口 [图片 OCR 识别 (内部)](https://napcat.apifox.cn/226658234e0.md): 路径: `/.ocr_image`；识别图片中的文字内容(仅Windows端支持)
+- 根目录 > 扩展接口 [设置专属头衔](https://napcat.apifox.cn/226656931e0.md): 路径: `/set_group_special_title`；设置群聊中指定成员的专属头衔
+- 根目录 > 扩展接口 [获取AI角色列表](https://napcat.apifox.cn/229485683e0.md): 路径: `/get_ai_characters`；获取群聊中的AI角色列表
+- 根目录 > 系统接口 [处理可疑好友申请](https://napcat.apifox.cn/289565525e0.md): 路径: `/set_doubt_friends_add_request`；同意或拒绝系统的可疑好友申请
+- 根目录 > 系统接口 [获取可疑好友申请](https://napcat.apifox.cn/289565516e0.md): 路径: `/get_doubt_friends_add_request`；获取系统的可疑好友申请列表
+- 根目录 > 系统接口 [获取登录号信息](https://napcat.apifox.cn/226656952e0.md): 路径: `/get_login_info`；获取当前登录帐号的信息
+- 根目录 > 系统接口 [获取版本信息](https://napcat.apifox.cn/226657087e0.md): 路径: `/get_version_info`；获取版本信息
+- 根目录 > 系统接口 [是否可以发送语音](https://napcat.apifox.cn/226657080e0.md): 路径: `/can_send_record`；检查是否可以发送语音
+- 根目录 > 系统接口 [是否可以发送图片](https://napcat.apifox.cn/226657071e0.md): 路径: `/can_send_image`；检查是否可以发送图片
+- 根目录 > 系统接口 [获取运行状态](https://napcat.apifox.cn/226657083e0.md): 路径: `/get_status`；获取运行状态
+- 根目录 > 系统接口 [获取 CSRF Token](https://napcat.apifox.cn/226657044e0.md): 路径: `/get_csrf_token`；获取 CSRF Token
+- 根目录 > 系统接口 [获取登录凭证](https://napcat.apifox.cn/226657054e0.md): 路径: `/get_credentials`；获取登录凭证
+- 根目录 > 系统接口 [获取Packet状态](https://napcat.apifox.cn/226659280e0.md): 路径: `/nc_get_packet_status`；获取底层Packet服务的运行状态
+- 根目录 > 系统接口 [重启服务](https://napcat.apifox.cn/410334662e0.md): 路径: `/set_restart`；重启服务
+- 根目录 > 系统接口 [获取群系统消息](https://napcat.apifox.cn/226658660e0.md): 路径: `/get_group_system_msg`；获取群系统消息
+- 根目录 > 系统接口 [清理缓存](https://napcat.apifox.cn/298305106e0.md): 路径: `/clean_cache`；清理缓存
+- 根目录 > 用户接口 [设置好友备注](https://napcat.apifox.cn/298305173e0.md): 路径: `/set_friend_remark`；设置好友备注
+- 根目录 > 用户接口 [点赞](https://napcat.apifox.cn/226656717e0.md): 路径: `/send_like`；给指定用户点赞
+- 根目录 > 用户接口 [获取好友列表](https://napcat.apifox.cn/226656976e0.md): 路径: `/get_friend_list`；获取当前帐号的好友列表
+- 根目录 > 用户接口 [处理加好友请求](https://napcat.apifox.cn/226656932e0.md): 路径: `/set_friend_add_request`；同意或拒绝加好友请求
+- 根目录 > 用户接口 [获取 Cookies](https://napcat.apifox.cn/226657041e0.md): 路径: `/get_cookies`；获取指定域名的 Cookies
+- 根目录 > 用户接口 [获取最近会话](https://napcat.apifox.cn/226659190e0.md): 路径: `/get_recent_contact`；获取最近会话
+- 根目录 > 系统扩展 [获取扩展 RKey](https://napcat.apifox.cn/283136230e0.md): 路径: `/get_rkey`
+- 根目录 > 系统扩展 [获取 RKey 服务器](https://napcat.apifox.cn/283136236e0.md): 路径: `/get_rkey_server`
+- 根目录 > 系统扩展 [设置在线状态](https://napcat.apifox.cn/226658977e0.md): 路径: `/set_online_status`
+- 根目录 > 系统扩展 [获取机器人 UIN 范围](https://napcat.apifox.cn/226658975e0.md): 路径: `/get_robot_uin_range`
+- 根目录 > 系统扩展 [获取自定义表情](https://napcat.apifox.cn/226659210e0.md): 路径: `/fetch_custom_face`
+- 根目录 > 系统扩展 [设置输入状态](https://napcat.apifox.cn/226659225e0.md): 路径: `/set_input_status`
+- 根目录 > 系统扩展 [获取用户在线状态](https://napcat.apifox.cn/226659292e0.md): 路径: `/nc_get_user_status`
+- 根目录 > 系统扩展 [获取 RKey](https://napcat.apifox.cn/226659297e0.md): 路径: `/nc_get_rkey`
+- 根目录 > 系统扩展 [获取小程序 Ark](https://napcat.apifox.cn/227738594e0.md): 路径: `/get_mini_app_ark`
+- 根目录 > 系统扩展 [发送原始数据包](https://napcat.apifox.cn/250286903e0.md): 路径: `/send_packet`
+- 根目录 > 系统扩展 [退出登录](https://napcat.apifox.cn/283136399e0.md): 路径: `/bot_exit`
+- 根目录 > 系统扩展 [获取收藏列表](https://napcat.apifox.cn/226659182e0.md): 路径: `/get_collection_list`
+- 根目录 > 消息扩展 [获取表情点赞详情](https://napcat.apifox.cn/226659219e0.md): 路径: `/fetch_emoji_like`
+- 根目录 > 消息扩展 [获取消息表情点赞列表](https://napcat.apifox.cn/410334663e0.md): 路径: `/get_emoji_likes`
+- 根目录 > 消息扩展 [分享群 (Ark)](https://napcat.apifox.cn/226658971e0.md): 路径: `/ArkShareGroup`；获取群分享的 Ark 内容
+- 根目录 > 消息扩展 [分享用户 (Ark)](https://napcat.apifox.cn/226658965e0.md): 路径: `/ArkSharePeer`；获取用户推荐的 Ark 内容
+- 根目录 > 消息扩展 [分享群 (Ark)](https://napcat.apifox.cn/410334664e0.md): 路径: `/send_group_ark_share`；获取群分享的 Ark 内容
+- 根目录 > 消息扩展 [分享用户 (Ark)](https://napcat.apifox.cn/410334665e0.md): 路径: `/send_ark_share`；获取用户推荐的 Ark 内容
+- 根目录 > 消息扩展 [设置消息表情点赞](https://napcat.apifox.cn/226659104e0.md): 路径: `/set_msg_emoji_like`
+- 根目录 > 消息扩展 [点击内联键盘按钮](https://napcat.apifox.cn/266151864e0.md): 路径: `/click_inline_keyboard_button`
+- 根目录 > 文件接口 [获取文件](https://napcat.apifox.cn/226658985e0.md): 路径: `/get_file`；获取指定文件的详细信息及下载路径
+- 根目录 > 文件接口 [获取图片](https://napcat.apifox.cn/226657066e0.md): 路径: `/get_image`；获取指定图片的信息及路径
+- 根目录 > 文件接口 [获取语音](https://napcat.apifox.cn/226657058e0.md): 路径: `/get_record`；获取指定语音文件的信息，并支持格式转换
+- 根目录 > 文件接口 [获取群文件URL](https://napcat.apifox.cn/226658867e0.md): 路径: `/get_group_file_url`；获取指定群文件的下载链接
+- 根目录 > 文件接口 [获取私聊文件URL](https://napcat.apifox.cn/266151849e0.md): 路径: `/get_private_file_url`；获取指定私聊文件的下载链接
+- 根目录 > Go-CQHTTP [设置QQ资料](https://napcat.apifox.cn/226657374e0.md): 路径: `/set_qq_profile`；修改当前账号的昵称、个性签名等资料
+- 根目录 > Go-CQHTTP [获取群根目录文件列表](https://napcat.apifox.cn/226658823e0.md): 路径: `/get_group_root_files`；获取群文件根目录下的所有文件和文件夹
+- 根目录 > Go-CQHTTP [删除好友](https://napcat.apifox.cn/227237873e0.md): 路径: `/delete_friend`；从好友列表中删除指定用户
+- 根目录 > Go-CQHTTP [检查URL安全性](https://napcat.apifox.cn/228534361e0.md): 路径: `/check_url_safely`；检查指定URL的安全等级
+- 根目录 > Go-CQHTTP [获取在线客户端](https://napcat.apifox.cn/226657379e0.md): 路径: `/get_online_clients`；获取当前登录账号的在线客户端列表
+- 根目录 > Go-CQHTTP [获取群荣誉信息](https://napcat.apifox.cn/226657036e0.md): 路径: `/get_group_honor_info`；获取指定群聊的荣誉信息，如龙王等
+- 根目录 > Go-CQHTTP [发送群公告](https://napcat.apifox.cn/226658740e0.md): 路径: `/_send_group_notice`；在指定群聊中发布新的公告
+- 根目录 > Go-CQHTTP [获取群艾特全体剩余次数](https://napcat.apifox.cn/227245941e0.md): 路径: `/get_group_at_all_remain`；获取指定群聊中艾特全体成员的剩余次数
+- 根目录 > Go-CQHTTP [发送合并转发消息](https://napcat.apifox.cn/226659136e0.md): 路径: `/send_forward_msg`；发送合并转发消息
+- 根目录 > Go-CQHTTP [发送群合并转发消息](https://napcat.apifox.cn/226657396e0.md): 路径: `/send_group_forward_msg`
+- 根目录 > Go-CQHTTP [发送私聊合并转发消息](https://napcat.apifox.cn/226657399e0.md): 路径: `/send_private_forward_msg`
+- 根目录 > Go-CQHTTP [获取陌生人信息](https://napcat.apifox.cn/226656970e0.md): 路径: `/get_stranger_info`；获取指定非好友用户的信息
+- 根目录 > Go-CQHTTP [下载文件](https://napcat.apifox.cn/226658887e0.md): 路径: `/download_file`；下载网络文件到本地临时目录
+- 根目录 > Go-CQHTTP [上传群文件](https://napcat.apifox.cn/226658753e0.md): 路径: `/upload_group_file`；上传资源路径或URL指定的文件到指定群聊的文件系统中
+- 根目录 > Go-CQHTTP [获取群历史消息](https://napcat.apifox.cn/226657401e0.md): 路径: `/get_group_msg_history`；获取指定群聊的历史聊天记录
+- 根目录 > Go-CQHTTP [获取合并转发消息](https://napcat.apifox.cn/226656712e0.md): 路径: `/get_forward_msg`；获取合并转发消息的具体内容
+- 根目录 > Go-CQHTTP [获取好友历史消息](https://napcat.apifox.cn/226659174e0.md): 路径: `/get_friend_msg_history`；获取指定好友的历史聊天记录
+- 根目录 > Go-CQHTTP [处理快速操作](https://napcat.apifox.cn/226658889e0.md): 路径: `/.handle_quick_operation`；处理来自事件上报的快速操作请求
+- 根目录 > Go-CQHTTP [设置群头像](https://napcat.apifox.cn/226658669e0.md): 路径: `/set_group_portrait`；修改指定群聊的头像
+- 根目录 > Go-CQHTTP [上传私聊文件](https://napcat.apifox.cn/226658883e0.md): 路径: `/upload_private_file`；上传本地文件到指定私聊会话中
+- 根目录 > Go-CQHTTP [获取机型显示](https://napcat.apifox.cn/227233981e0.md): 路径: `/_get_model_show`；获取当前账号可用的设备机型显示名称列表
+- 根目录 > Go-CQHTTP [设置机型](https://napcat.apifox.cn/227233993e0.md): 路径: `/_set_model_show`；设置当前账号的设备机型名称
+- 根目录 > Go-CQHTTP [删除群文件](https://napcat.apifox.cn/226658755e0.md): 路径: `/delete_group_file`；在群文件系统中删除指定的文件
+- 根目录 > Go-CQHTTP [创建群文件目录](https://napcat.apifox.cn/226658773e0.md): 路径: `/create_group_file_folder`；在群文件系统中创建新的文件夹
+- 根目录 > Go-CQHTTP [删除群文件目录](https://napcat.apifox.cn/226658779e0.md): 路径: `/delete_group_folder`；在群文件系统中删除指定的文件夹
+- 根目录 > Go-CQHTTP [获取群文件系统信息](https://napcat.apifox.cn/226658789e0.md): 路径: `/get_group_file_system_info`；获取群聊文件系统的空间及状态信息
+- 根目录 > Go-CQHTTP [获取群文件夹文件列表](https://napcat.apifox.cn/226658865e0.md): 路径: `/get_group_files_by_folder`；获取指定群文件夹下的文件及子文件夹列表
+- 根目录 > 消息接口 [转发单条消息](https://napcat.apifox.cn/226659051e0.md): 路径: `/forward_friend_single_msg`；转发单条消息
+- 根目录 > 消息接口 [转发单条消息](https://napcat.apifox.cn/226659074e0.md): 路径: `/forward_group_single_msg`；转发单条消息
+- 根目录 > 消息接口 [标记群聊已读](https://napcat.apifox.cn/226659167e0.md): 路径: `/mark_group_msg_as_read`；标记指定渠道的消息为已读
+- 根目录 > 消息接口 [标记私聊已读](https://napcat.apifox.cn/226659165e0.md): 路径: `/mark_private_msg_as_read`；标记指定渠道的消息为已读
+- 根目录 > 消息接口 [获取消息](https://napcat.apifox.cn/226656707e0.md): 路径: `/get_msg`；根据消息 ID 获取消息详细信息
+- 根目录 > 消息接口 [发送私聊消息](https://napcat.apifox.cn/226656553e0.md): 路径: `/send_private_msg`；发送私聊消息
+- 根目录 > 消息接口 [发送消息](https://napcat.apifox.cn/226656652e0.md): 路径: `/send_msg`；发送私聊或群聊消息
+- 根目录 > 消息接口 [撤回消息](https://napcat.apifox.cn/226919954e0.md): 路径: `/delete_msg`；撤回已发送的消息
+- 根目录 > 消息接口 [标记消息已读 (Go-CQHTTP)](https://napcat.apifox.cn/226657389e0.md): 路径: `/mark_msg_as_read`；标记指定渠道的消息为已读
+- 根目录 > 消息接口 [标记所有消息已读](https://napcat.apifox.cn/226659194e0.md): 路径: `/_mark_all_as_read`
+- 根目录 > 文件扩展 [移动群文件](https://napcat.apifox.cn/283136359e0.md): 路径: `/move_group_file`
+- 根目录 > 文件扩展 [重命名群文件](https://napcat.apifox.cn/283136375e0.md): 路径: `/rename_group_file`
+- 根目录 > 文件扩展 [传输群文件](https://napcat.apifox.cn/283136366e0.md): 路径: `/trans_group_file`
+- 根目录 > 文件扩展 [创建闪传任务](https://napcat.apifox.cn/410334666e0.md): 路径: `/create_flash_task`
+- 根目录 > 文件扩展 [获取闪传文件列表](https://napcat.apifox.cn/410334667e0.md): 路径: `/get_flash_file_list`
+- 根目录 > 文件扩展 [获取闪传文件链接](https://napcat.apifox.cn/410334668e0.md): 路径: `/get_flash_file_url`
+- 根目录 > 文件扩展 [发送闪传消息](https://napcat.apifox.cn/410334669e0.md): 路径: `/send_flash_msg`
+- 根目录 > 文件扩展 [获取文件分享链接](https://napcat.apifox.cn/410334670e0.md): 路径: `/get_share_link`
+- 根目录 > 文件扩展 [获取文件集信息](https://napcat.apifox.cn/410334671e0.md): 路径: `/get_fileset_info`
+- 根目录 > 文件扩展 [获取在线文件消息](https://napcat.apifox.cn/410334672e0.md): 路径: `/get_online_file_msg`
+- 根目录 > 文件扩展 [发送在线文件](https://napcat.apifox.cn/410334673e0.md): 路径: `/send_online_file`
+- 根目录 > 文件扩展 [发送在线文件夹](https://napcat.apifox.cn/410334674e0.md): 路径: `/send_online_folder`
+- 根目录 > 文件扩展 [接收在线文件](https://napcat.apifox.cn/410334675e0.md): 路径: `/receive_online_file`
+- 根目录 > 文件扩展 [拒绝在线文件](https://napcat.apifox.cn/410334676e0.md): 路径: `/refuse_online_file`
+- 根目录 > 文件扩展 [取消在线文件](https://napcat.apifox.cn/410334677e0.md): 路径: `/cancel_online_file`
+- 根目录 > 文件扩展 [下载文件集](https://napcat.apifox.cn/410334678e0.md): 路径: `/download_fileset`
+- 根目录 > 文件扩展 [获取文件集 ID](https://napcat.apifox.cn/410334679e0.md): 路径: `/get_fileset_id`
+- 根目录 > 用户扩展 [获取带分组的好友列表](https://napcat.apifox.cn/226658978e0.md): 路径: `/get_friends_with_category`
+- 根目录 > 用户扩展 [获取资料点赞](https://napcat.apifox.cn/226659197e0.md): 路径: `/get_profile_like`
+- 根目录 > 用户扩展 [设置自定义在线状态](https://napcat.apifox.cn/266151905e0.md): 路径: `/set_diy_online_status`；设置自定义在线状态
+- 根目录 > 用户扩展 [获取单向好友列表](https://napcat.apifox.cn/266151878e0.md): 路径: `/get_unidirectional_friend_list`
+- 根目录 > 频道接口 [获取频道列表](https://napcat.apifox.cn/226659311e0.md): 路径: `/get_guild_list`；获取当前帐号已加入的频道列表
+- 根目录 > 频道接口 [获取频道个人信息](https://napcat.apifox.cn/226659317e0.md): 路径: `/get_guild_service_profile`；获取当前帐号在频道中的个人资料
+- 根目录 > AI 扩展 [获取 AI 语音](https://napcat.apifox.cn/229486818e0.md): 路径: `/get_ai_record`；通过 AI 语音引擎获取指定文本的语音 URL
+- 根目录 > AI 扩展 [发送群 AI 语音](https://napcat.apifox.cn/229486774e0.md): 路径: `/send_group_ai_record`；发送 AI 生成的语音到指定群聊
+- 根目录 > 流式传输扩展 [清理流式传输临时文件](https://napcat.apifox.cn/395354124e0.md): 路径: `/clean_stream_temp_file`
+- 根目录 > 流式传输扩展 [下载语音文件流](https://napcat.apifox.cn/395417040e0.md): 路径: `/download_file_record_stream`
+- 根目录 > 流式传输扩展 [下载图片文件流](https://napcat.apifox.cn/395419462e0.md): 路径: `/download_file_image_stream`
+- 根目录 > 流式传输扩展 [测试下载流](https://napcat.apifox.cn/395355338e0.md): 路径: `/test_download_stream`
+- 根目录 > 流式接口 [下载文件流](https://napcat.apifox.cn/395413859e0.md): 路径: `/download_file_stream`；以流式方式从网络或本地下载文件
+- 根目录 > 流式接口 [上传文件流](https://napcat.apifox.cn/395363988e0.md): 路径: `/upload_file_stream`；以流式方式上传文件数据到机器人
+
+
+## Schema
+- 根目录 [BaseResponse](https://napcat.apifox.cn/246111186d0.md): 
+- 根目录 [EmptyData](https://napcat.apifox.cn/246111187d0.md): 
+- 根目录 [FileBaseData](https://napcat.apifox.cn/246111188d0.md): 
+- 根目录 [OB11MessageAt](https://napcat.apifox.cn/246111189d0.md): 
+- 根目录 [OB11MessageContact](https://napcat.apifox.cn/246111190d0.md): 
+- 根目录 [OB11MessageCustomMusic](https://napcat.apifox.cn/246111191d0.md): 
+- 根目录 [OB11MessageData](https://napcat.apifox.cn/246111192d0.md): 
+- 根目录 [OB11MessageDice](https://napcat.apifox.cn/246111193d0.md): 
+- 根目录 [OB11MessageFace](https://napcat.apifox.cn/246111194d0.md): 
+- 根目录 [OB11MessageFileBase](https://napcat.apifox.cn/246111195d0.md): 
+- 根目录 [OB11MessageFile](https://napcat.apifox.cn/246111196d0.md): 
+- 根目录 [OB11MessageFlashTransfer](https://napcat.apifox.cn/246111197d0.md): 
+- 根目录 [OB11MessageForward](https://napcat.apifox.cn/246111198d0.md): 
+- 根目录 [OB11MessageIdMusic](https://napcat.apifox.cn/246111199d0.md): 
+- 根目录 [OB11MessageImage](https://napcat.apifox.cn/246111200d0.md): 
+- 根目录 [OB11MessageJson](https://napcat.apifox.cn/246111201d0.md): 
+- 根目录 [OB11MessageLocation](https://napcat.apifox.cn/246111202d0.md): 
+- 根目录 [OB11MessageMFace](https://napcat.apifox.cn/246111203d0.md): 
+- 根目录 [OB11MessageMarkdown](https://napcat.apifox.cn/246111204d0.md): 
+- 根目录 [OB11MessageMiniApp](https://napcat.apifox.cn/246111205d0.md): 
+- 根目录 [OB11MessageMixType](https://napcat.apifox.cn/246111206d0.md): 
+- 根目录 [OB11MessageNode](https://napcat.apifox.cn/246111207d0.md): 
+- 根目录 [OB11MessageOnlineFile](https://napcat.apifox.cn/246111208d0.md): 
+- 根目录 [OB11MessagePoke](https://napcat.apifox.cn/246111209d0.md): 
+- 根目录 [OB11MessageRPS](https://napcat.apifox.cn/246111210d0.md): 
+- 根目录 [OB11MessageRecord](https://napcat.apifox.cn/246111211d0.md): 
+- 根目录 [OB11MessageReply](https://napcat.apifox.cn/246111212d0.md): 
+- 根目录 [OB11Message](https://napcat.apifox.cn/246111213d0.md): 
+- 根目录 [OB11MessageText](https://napcat.apifox.cn/246111214d0.md): 
+- 根目录 [OB11MessageVideo](https://napcat.apifox.cn/246111215d0.md): 
+- 根目录 [OB11MessageXml](https://napcat.apifox.cn/246111216d0.md): 
+- 根目录 [OB11PostSendMsg](https://napcat.apifox.cn/246111217d0.md): 
+- 根目录 [OB11Sender](https://napcat.apifox.cn/246111218d0.md): 
+- 根目录 [OB11GroupMember](https://napcat.apifox.cn/246111219d0.md): 
+- 根目录 [OB11Group](https://napcat.apifox.cn/246111220d0.md): 
+- 根目录 [OB11ActionMessage](https://napcat.apifox.cn/246111221d0.md): 
+- 根目录 [OB11Notify](https://napcat.apifox.cn/246111222d0.md): 
+- 根目录 [OB11User](https://napcat.apifox.cn/246111223d0.md): 
+- 根目录 [OB11LatestMessage](https://napcat.apifox.cn/246111224d0.md): 
+- 根目录 > 接口定义 [Sender](https://napcat.apifox.cn/242598127d0.md): 
+- 根目录 > 接口定义 [result](https://napcat.apifox.cn/242598128d0.md): 
+- 根目录 > 接口定义 [GroupFile](https://napcat.apifox.cn/242598129d0.md): 
+- 根目录 > 接口定义 [GroupFileFolder](https://napcat.apifox.cn/242598130d0.md): 
+- 根目录 > 接口定义 [Group](https://napcat.apifox.cn/242598131d0.md): 
+- 根目录 > 接口定义 [GroupMember](https://napcat.apifox.cn/242598132d0.md): 
+- 根目录 > 接口定义 [User](https://napcat.apifox.cn/242598133d0.md): 
+- 根目录 > 接口定义 [UserSex](https://napcat.apifox.cn/242598134d0.md): 
+- 根目录 > 接口定义 [GroupMemberRole](https://napcat.apifox.cn/242598135d0.md): 
+- 根目录 > 接口定义 [Message](https://napcat.apifox.cn/242598136d0.md): 
+- 根目录 > 数据类型 [群荣誉信息](https://napcat.apifox.cn/242598137d0.md): 
+- 根目录 > 数据类型 [消息详情](https://napcat.apifox.cn/242598138d0.md): 
+- 根目录 > 数据类型 [number | string](https://napcat.apifox.cn/242598139d0.md): 
+- 根目录 > 数据类型 [点赞信息](https://napcat.apifox.cn/242598140d0.md): 
+- 根目录 > 数据类型 [系统信息](https://napcat.apifox.cn/242598141d0.md): 
+- 根目录 > 消息类型 [MessageMixType](https://napcat.apifox.cn/242598142d0.md): 
+- 根目录 > 消息类型 [face](https://napcat.apifox.cn/242598143d0.md): 
+- 根目录 > 消息类型 [reply](https://napcat.apifox.cn/242598144d0.md): 
+- 根目录 > 消息类型 [dice](https://napcat.apifox.cn/242598145d0.md): 
+- 根目录 > 消息类型 [image](https://napcat.apifox.cn/242598146d0.md): 
+- 根目录 > 消息类型 [text](https://napcat.apifox.cn/242598147d0.md): 
+- 根目录 > 消息类型 [forward](https://napcat.apifox.cn/242598148d0.md): 
+- 根目录 > 消息类型 [at](https://napcat.apifox.cn/242598149d0.md): 
+- 根目录 > 消息类型 [music](https://napcat.apifox.cn/242598150d0.md): 
+- 根目录 > 消息类型 [json](https://napcat.apifox.cn/242598151d0.md): 
+- 根目录 > 消息类型 [video](https://napcat.apifox.cn/242598152d0.md): 
+- 根目录 > 消息类型 [record](https://napcat.apifox.cn/242598153d0.md): 
+- 根目录 > 消息类型 [file](https://napcat.apifox.cn/242598154d0.md): 
+- 根目录 > 消息类型 [node](https://napcat.apifox.cn/242598155d0.md): 
+- 根目录 > 消息类型 [rps](https://napcat.apifox.cn/242598156d0.md): 
+- 根目录 > 消息类型 [MessageData[]](https://napcat.apifox.cn/242598157d0.md): 
+- 根目录 > 消息类型 [messageData](https://napcat.apifox.cn/242598158d0.md): 
+- 根目录 > 消息类型 [mface](https://napcat.apifox.cn/242598159d0.md): 
+- 根目录 > 消息类型 [markdown](https://napcat.apifox.cn/242598160d0.md): 
+- 根目录 > 消息类型 [contact](https://napcat.apifox.cn/242598161d0.md): 
+- 根目录 > 消息类型 [poke](https://napcat.apifox.cn/242598162d0.md): 
+- 根目录 > 消息类型 [FileBase](https://napcat.apifox.cn/242598163d0.md): 

@@ -2,6 +2,8 @@ package fun.imiku.napcat4j.component;
 
 import com.mikuac.shiro.common.utils.JsonUtils;
 import fun.imiku.napcat4j.config.NapCatApiProperties;
+import fun.imiku.napcat4j.dto.schema.BaseResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,14 +19,17 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Executor;
 
 /**
  * 内部 HTTP 服务
  */
+@Slf4j
 @Service
 public class ApiPostService {
 
     private static final String EMPTY_JSON_BODY = "{}";
+    public static final Executor VIRTUAL_THREAD_EXECUTOR = Thread::startVirtualThread;
 
     private final HttpClient httpClient;
     private final String[] defaultHeaders;
@@ -65,7 +70,12 @@ public class ApiPostService {
      */
     public static <T> T parseResponse(HttpResponse<String> resp, Class<T> clazz) {
         try {
-            return objectMapper.readValue(resp.body(), clazz);
+            BaseResponse r = (BaseResponse) objectMapper.readValue(resp.body(), clazz);
+            if (r.getRetcode() != 0) {
+                log.error("API 调用异常，状态: {} ; message: {} ; wording: {}", r.getRetcode(), r.getMessage(), r.getWording());
+                throw new RuntimeException();
+            }
+            return (T) r;
         } catch (Exception e) {
             throw new RuntimeException("API 调用将 " + resp.body() + " 反序列化为 " + clazz.getName() + " 失败");
         }

@@ -34,14 +34,13 @@ public class NotifyEvent {
     public final Map<String, BiConsumer<Bot, JsonObjectWrapper>> handlers = new HashMap<>();
     private final EventUtils utils;
     private final InjectionHandler injection;
+    private final NoticeEventDispatcher napcat4jDispatcher;
 
     @Autowired
-    private NoticeEventDispatcher napcat4jDispatcher;
-
-    @Autowired
-    public NotifyEvent(EventUtils utils, InjectionHandler injection) {
+    public NotifyEvent(EventUtils utils, InjectionHandler injection, NoticeEventDispatcher napcat4jDispatcher) {
         this.utils = utils;
         this.injection = injection;
+        this.napcat4jDispatcher = napcat4jDispatcher;
     }
 
     /**
