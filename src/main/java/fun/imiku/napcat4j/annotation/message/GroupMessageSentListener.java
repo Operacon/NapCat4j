@@ -22,12 +22,12 @@ import java.lang.annotation.Target;
 public @interface GroupMessageSentListener {
 
     /**
-     * 事件过期阈值，与当前时间相差超过 value 秒的事件将被忽略，减少历史积压事件的影响
+     * 事件过期阈值，与当前时间相差超过 ignoreAfterSec 秒的事件将被忽略，减少历史积压事件的影响
      * <p>
      * 默认 5 秒，设置为 -1 以禁用
      *
      * @return allowed time difference in seconds
      */
-    int value() default 5;
+    int ignoreAfterSec() default 5;
 }
 

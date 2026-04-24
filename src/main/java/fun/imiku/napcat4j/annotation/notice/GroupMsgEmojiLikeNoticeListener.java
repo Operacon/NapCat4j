@@ -23,6 +23,6 @@ public @interface GroupMsgEmojiLikeNoticeListener {
     /**
      * 事件过期阈值（秒），默认 5，设置为 -1 表示禁用时效校验。
      */
-    int value() default 5;
+    int ignoreAfterSec() default 5;
 }
 

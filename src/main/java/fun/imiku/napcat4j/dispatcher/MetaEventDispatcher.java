@@ -112,7 +112,7 @@ public class MetaEventDispatcher {
                 log.error("@HeartbeatListener bean does not implement MetaListener: {}", bean.getClass().getName());
                 continue;
             }
-            bindings.add(new ListenerBinding<>((MetaListener<HeartbeatMetaEvent>) listener, annotation.value()));
+            bindings.add(new ListenerBinding<>((MetaListener<HeartbeatMetaEvent>) listener, annotation.ignoreAfterSec()));
         }
         return List.copyOf(bindings);
     }
@@ -131,7 +131,7 @@ public class MetaEventDispatcher {
                 log.error("@LifeCycleListener bean does not implement MetaListener: {}", bean.getClass().getName());
                 continue;
             }
-            bindings.add(new ListenerBinding<>((MetaListener<LifecycleMetaEvent>) listener, annotation.value()));
+            bindings.add(new ListenerBinding<>((MetaListener<LifecycleMetaEvent>) listener, annotation.ignoreAfterSec()));
         }
         return List.copyOf(bindings);
     }

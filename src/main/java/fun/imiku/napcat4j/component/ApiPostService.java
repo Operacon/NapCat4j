@@ -4,7 +4,6 @@ import com.mikuac.shiro.common.utils.JsonUtils;
 import fun.imiku.napcat4j.config.NapCatApiProperties;
 import fun.imiku.napcat4j.dto.schema.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -41,12 +41,11 @@ public class ApiPostService {
     private final Map<NapCatApiPath, URI> uriCache;
 
     public ApiPostService(
-            @Qualifier("napcatApiHttpClient") HttpClient httpClient,
             NapCatApiProperties properties
     ) {
-        this.httpClient = httpClient;
+        this.httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
         this.defaultHeaders = buildDefaultHeaders(properties);
-        this.baseUrl = properties.baseUrl();
+        this.baseUrl = properties.getUrl();
         this.uriCache = new HashMap<>();
         for (NapCatApiPath apiPath : NapCatApiPath.values()) {
             uriCache.put(apiPath, URI.create(baseUrl + apiPath));
@@ -116,7 +115,7 @@ public class ApiPostService {
         }
         return new String[]{
                 HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE,
-                HttpHeaders.AUTHORIZATION, "Bearer " + properties.accessToken()
+                HttpHeaders.AUTHORIZATION, "Bearer " + properties.getAccessToken()
         };
     }
 

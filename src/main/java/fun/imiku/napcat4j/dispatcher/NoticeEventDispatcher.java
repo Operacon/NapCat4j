@@ -94,24 +94,24 @@ public class NoticeEventDispatcher {
 
     @PostConstruct
     public void init() {
-        this.friendAddNoticeListeners = scanListeners(FriendAddNoticeListener.class, FriendAddNoticeListener::value, "@FriendAddNoticeListener");
-        this.friendRecallNoticeListeners = scanListeners(FriendRecallNoticeListener.class, FriendRecallNoticeListener::value, "@FriendRecallNoticeListener");
-        this.groupRecallNoticeListeners = scanListeners(GroupRecallNoticeListener.class, GroupRecallNoticeListener::value, "@GroupRecallNoticeListener");
-        this.groupIncreaseNoticeListeners = scanListeners(GroupIncreaseNoticeListener.class, GroupIncreaseNoticeListener::value, "@GroupIncreaseNoticeListener");
-        this.groupDecreaseNoticeListeners = scanListeners(GroupDecreaseNoticeListener.class, GroupDecreaseNoticeListener::value, "@GroupDecreaseNoticeListener");
-        this.groupAdminNoticeListeners = scanListeners(GroupAdminNoticeListener.class, GroupAdminNoticeListener::value, "@GroupAdminNoticeListener");
-        this.groupBanNoticeListeners = scanListeners(GroupBanNoticeListener.class, GroupBanNoticeListener::value, "@GroupBanNoticeListener");
-        this.groupUploadNoticeListeners = scanListeners(GroupUploadNoticeListener.class, GroupUploadNoticeListener::value, "@GroupUploadNoticeListener");
-        this.groupCardNoticeListeners = scanListeners(GroupCardNoticeListener.class, GroupCardNoticeListener::value, "@GroupCardNoticeListener");
-        this.groupNameNoticeListeners = scanListeners(GroupNameNoticeListener.class, GroupNameNoticeListener::value, "@GroupNameNoticeListener");
-        this.groupTitleNoticeListeners = scanListeners(GroupTitleNoticeListener.class, GroupTitleNoticeListener::value, "@GroupTitleNoticeListener");
-        this.groupEssenceNoticeListeners = scanListeners(GroupEssenceNoticeListener.class, GroupEssenceNoticeListener::value, "@GroupEssenceNoticeListener");
-        this.groupGrayTipNoticeListeners = scanListeners(GroupGrayTipNoticeListener.class, GroupGrayTipNoticeListener::value, "@GroupGrayTipNoticeListener");
-        this.groupMsgEmojiLikeNoticeListeners = scanListeners(GroupMsgEmojiLikeNoticeListener.class, GroupMsgEmojiLikeNoticeListener::value, "@GroupMsgEmojiLikeNoticeListener");
-        this.groupPokeNoticeListeners = scanListeners(GroupPokeNoticeListener.class, GroupPokeNoticeListener::value, "@GroupPokeNoticeListener");
-        this.profileLikeNoticeListeners = scanListeners(ProfileLikeNoticeListener.class, ProfileLikeNoticeListener::value, "@ProfileLikeNoticeListener");
-        this.inputStatusNoticeListeners = scanListeners(InputStatusNoticeListener.class, InputStatusNoticeListener::value, "@InputStatusNoticeListener");
-        this.botOfflineNoticeListeners = scanListeners(BotOfflineNoticeListener.class, BotOfflineNoticeListener::value, "@BotOfflineNoticeListener");
+        this.friendAddNoticeListeners = scanListeners(FriendAddNoticeListener.class, FriendAddNoticeListener::ignoreAfterSec, "@FriendAddNoticeListener");
+        this.friendRecallNoticeListeners = scanListeners(FriendRecallNoticeListener.class, FriendRecallNoticeListener::ignoreAfterSec, "@FriendRecallNoticeListener");
+        this.groupRecallNoticeListeners = scanListeners(GroupRecallNoticeListener.class, GroupRecallNoticeListener::ignoreAfterSec, "@GroupRecallNoticeListener");
+        this.groupIncreaseNoticeListeners = scanListeners(GroupIncreaseNoticeListener.class, GroupIncreaseNoticeListener::ignoreAfterSec, "@GroupIncreaseNoticeListener");
+        this.groupDecreaseNoticeListeners = scanListeners(GroupDecreaseNoticeListener.class, GroupDecreaseNoticeListener::ignoreAfterSec, "@GroupDecreaseNoticeListener");
+        this.groupAdminNoticeListeners = scanListeners(GroupAdminNoticeListener.class, GroupAdminNoticeListener::ignoreAfterSec, "@GroupAdminNoticeListener");
+        this.groupBanNoticeListeners = scanListeners(GroupBanNoticeListener.class, GroupBanNoticeListener::ignoreAfterSec, "@GroupBanNoticeListener");
+        this.groupUploadNoticeListeners = scanListeners(GroupUploadNoticeListener.class, GroupUploadNoticeListener::ignoreAfterSec, "@GroupUploadNoticeListener");
+        this.groupCardNoticeListeners = scanListeners(GroupCardNoticeListener.class, GroupCardNoticeListener::ignoreAfterSec, "@GroupCardNoticeListener");
+        this.groupNameNoticeListeners = scanListeners(GroupNameNoticeListener.class, GroupNameNoticeListener::ignoreAfterSec, "@GroupNameNoticeListener");
+        this.groupTitleNoticeListeners = scanListeners(GroupTitleNoticeListener.class, GroupTitleNoticeListener::ignoreAfterSec, "@GroupTitleNoticeListener");
+        this.groupEssenceNoticeListeners = scanListeners(GroupEssenceNoticeListener.class, GroupEssenceNoticeListener::ignoreAfterSec, "@GroupEssenceNoticeListener");
+        this.groupGrayTipNoticeListeners = scanListeners(GroupGrayTipNoticeListener.class, GroupGrayTipNoticeListener::ignoreAfterSec, "@GroupGrayTipNoticeListener");
+        this.groupMsgEmojiLikeNoticeListeners = scanListeners(GroupMsgEmojiLikeNoticeListener.class, GroupMsgEmojiLikeNoticeListener::ignoreAfterSec, "@GroupMsgEmojiLikeNoticeListener");
+        this.groupPokeNoticeListeners = scanListeners(GroupPokeNoticeListener.class, GroupPokeNoticeListener::ignoreAfterSec, "@GroupPokeNoticeListener");
+        this.profileLikeNoticeListeners = scanListeners(ProfileLikeNoticeListener.class, ProfileLikeNoticeListener::ignoreAfterSec, "@ProfileLikeNoticeListener");
+        this.inputStatusNoticeListeners = scanListeners(InputStatusNoticeListener.class, InputStatusNoticeListener::ignoreAfterSec, "@InputStatusNoticeListener");
+        this.botOfflineNoticeListeners = scanListeners(BotOfflineNoticeListener.class, BotOfflineNoticeListener::ignoreAfterSec, "@BotOfflineNoticeListener");
 
         int total = friendAddNoticeListeners.size()
                 + friendRecallNoticeListeners.size()

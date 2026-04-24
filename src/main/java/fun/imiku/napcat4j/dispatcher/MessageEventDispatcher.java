@@ -146,7 +146,7 @@ public class MessageEventDispatcher {
                 log.error("@PrivateMessageListener bean does not implement MessageListener: {}", bean.getClass().getName());
                 continue;
             }
-            bindings.add(new ListenerBinding<>((MessageListener<PrivateMessageEvent>) listener, annotation.value()));
+            bindings.add(new ListenerBinding<>((MessageListener<PrivateMessageEvent>) listener, annotation.ignoreAfterSec()));
         }
         return List.copyOf(bindings);
     }
@@ -165,7 +165,7 @@ public class MessageEventDispatcher {
                 log.error("@GroupMessageListener bean does not implement MessageListener: {}", bean.getClass().getName());
                 continue;
             }
-            bindings.add(new ListenerBinding<>((MessageListener<GroupMessageEvent>) listener, annotation.value()));
+            bindings.add(new ListenerBinding<>((MessageListener<GroupMessageEvent>) listener, annotation.ignoreAfterSec()));
         }
         return List.copyOf(bindings);
     }
@@ -184,7 +184,7 @@ public class MessageEventDispatcher {
                 log.error("@PrivateMessageSentListener bean does not implement MessageListener: {}", bean.getClass().getName());
                 continue;
             }
-            bindings.add(new ListenerBinding<>((MessageListener<PrivateMessageEvent>) listener, annotation.value()));
+            bindings.add(new ListenerBinding<>((MessageListener<PrivateMessageEvent>) listener, annotation.ignoreAfterSec()));
         }
         return List.copyOf(bindings);
     }
@@ -203,7 +203,7 @@ public class MessageEventDispatcher {
                 log.error("@GroupMessageSentListener bean does not implement MessageListener: {}", bean.getClass().getName());
                 continue;
             }
-            bindings.add(new ListenerBinding<>((MessageListener<GroupMessageEvent>) listener, annotation.value()));
+            bindings.add(new ListenerBinding<>((MessageListener<GroupMessageEvent>) listener, annotation.ignoreAfterSec()));
         }
         return List.copyOf(bindings);
     }

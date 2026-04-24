@@ -21,11 +21,11 @@ import java.lang.annotation.Target;
 public @interface LifeCycleListener {
 
     /**
-     * 事件过期阈值，当前时间与事件时间相差超过 value 秒的事件将被忽略。
+     * 事件过期阈值，当前时间与事件时间相差超过 ignoreAfterSec 秒的事件将被忽略。
      * <p>
      * 默认 5 秒，设置为 -1 表示禁用。
      *
      * @return allowed time difference in seconds
      */
-    int value() default 5;
+    int ignoreAfterSec() default 5;
 }
