@@ -8,6 +8,7 @@ import fun.imiku.napcat4j.annotation.message.GroupMessageListener;
 import fun.imiku.napcat4j.annotation.message.GroupMessageSentListener;
 import fun.imiku.napcat4j.annotation.message.PrivateMessageListener;
 import fun.imiku.napcat4j.annotation.message.PrivateMessageSentListener;
+import fun.imiku.napcat4j.component.ConcurrencyLimiter;
 import fun.imiku.napcat4j.listener.MessageListener;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -29,6 +30,7 @@ import java.util.concurrent.Executors;
 public class MessageEventDispatcher {
 
     private final ApplicationContext applicationContext;
+    private final ConcurrencyLimiter concurrencyLimiter;
     private final ExecutorService virtualThreadExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
     private List<ListenerBinding<PrivateMessageEvent>> privateListeners = List.of();
@@ -36,8 +38,9 @@ public class MessageEventDispatcher {
     private List<ListenerBinding<PrivateMessageEvent>> privateSentListeners = List.of();
     private List<ListenerBinding<GroupMessageEvent>> groupSentListeners = List.of();
 
-    public MessageEventDispatcher(ApplicationContext applicationContext) {
+    public MessageEventDispatcher(ApplicationContext applicationContext, ConcurrencyLimiter concurrencyLimiter) {
         this.applicationContext = applicationContext;
+        this.concurrencyLimiter = concurrencyLimiter;
     }
 
     @PostConstruct
@@ -107,18 +110,29 @@ public class MessageEventDispatcher {
         if (!shouldProcessByTime(now, event, binding.ignoreSeconds())) {
             return;
         }
-        virtualThreadExecutor.execute(() -> {
-            try {
-                T filteredEvent = binding.listener().filter(bot, event);
-                if (filteredEvent == null) {
-                    return;
+        ConcurrencyLimiter.Permit permit = concurrencyLimiter.obtain();
+        if (permit == null) {
+            log.warn("消费聊天消息超出最大事件并发，丢弃事件  message={}", event.getMessage());
+            return;
+        }
+        // 此层不可用 try-with-resources，否则信号量会提前释放
+        try {
+            virtualThreadExecutor.execute(() -> {
+                try (permit) {
+                    T filteredEvent = binding.listener().filter(bot, event);
+                    if (filteredEvent == null) {
+                        return;
+                    }
+                    binding.listener().process(bot, filteredEvent);
+                } catch (Exception e) {
+                    log.error("消费聊天消息失败 listener={}, message={}",
+                            binding.listener().getClass().getName(), event.getMessage(), e);
                 }
-                binding.listener().process(bot, filteredEvent);
-            } catch (Exception e) {
-                log.error("消费聊天消息失败 listener={}, message={}",
-                        binding.listener().getClass().getName(), event.getMessage(), e);
-            }
-        });
+            });
+        } catch (Exception e) {
+            log.error("分发事件失败 {}", e.getMessage());
+            permit.release();
+        }
     }
 
     private boolean shouldProcessByTime(long now, MessageEvent event, int ignoreSeconds) {
@@ -211,4 +225,3 @@ public class MessageEventDispatcher {
     private record ListenerBinding<T extends MessageEvent>(MessageListener<T> listener, int ignoreSeconds) {
     }
 }
-

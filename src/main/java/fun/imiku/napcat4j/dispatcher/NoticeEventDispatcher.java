@@ -38,6 +38,7 @@ import fun.imiku.napcat4j.annotation.notice.GroupTitleNoticeListener;
 import fun.imiku.napcat4j.annotation.notice.GroupUploadNoticeListener;
 import fun.imiku.napcat4j.annotation.notice.InputStatusNoticeListener;
 import fun.imiku.napcat4j.annotation.notice.ProfileLikeNoticeListener;
+import fun.imiku.napcat4j.component.ConcurrencyLimiter;
 import fun.imiku.napcat4j.listener.NoticeListener;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -67,6 +68,7 @@ import java.util.function.ToIntFunction;
 public class NoticeEventDispatcher {
 
     private final ApplicationContext applicationContext;
+    private final ConcurrencyLimiter concurrencyLimiter;
     private final ExecutorService virtualThreadExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
     private List<ListenerBinding<FriendAddNoticeEvent>> friendAddNoticeListeners = List.of();
@@ -88,8 +90,9 @@ public class NoticeEventDispatcher {
     private List<ListenerBinding<InputStatusNoticeEvent>> inputStatusNoticeListeners = List.of();
     private List<ListenerBinding<BotOfflineEvent>> botOfflineNoticeListeners = List.of();
 
-    public NoticeEventDispatcher(ApplicationContext applicationContext) {
+    public NoticeEventDispatcher(ApplicationContext applicationContext, ConcurrencyLimiter concurrencyLimiter) {
         this.applicationContext = applicationContext;
+        this.concurrencyLimiter = concurrencyLimiter;
     }
 
     @PostConstruct
@@ -225,18 +228,29 @@ public class NoticeEventDispatcher {
         if (!shouldProcessByTime(now, event, binding.ignoreSeconds())) {
             return;
         }
-        virtualThreadExecutor.execute(() -> {
-            try {
-                T filteredEvent = binding.listener().filter(bot, event);
-                if (filteredEvent == null) {
-                    return;
+        ConcurrencyLimiter.Permit permit = concurrencyLimiter.obtain();
+        if (permit == null) {
+            log.warn("消费通知事件超出最大事件并发，丢弃事件 noticeType={}", event.getNoticeType());
+            return;
+        }
+        // 此层不可用 try-with-resources，否则信号量会提前释放
+        try {
+            virtualThreadExecutor.execute(() -> {
+                try (permit) {
+                    T filteredEvent = binding.listener().filter(bot, event);
+                    if (filteredEvent == null) {
+                        return;
+                    }
+                    binding.listener().process(bot, filteredEvent);
+                } catch (Exception e) {
+                    log.error("消费通知事件失败 listener={}, noticeType={}",
+                            binding.listener().getClass().getName(), event.getNoticeType(), e);
                 }
-                binding.listener().process(bot, filteredEvent);
-            } catch (Exception e) {
-                log.error("消费通知事件失败 listener={}, noticeType={}",
-                        binding.listener().getClass().getName(), event.getNoticeType(), e);
-            }
-        });
+            });
+        } catch (Exception e) {
+            log.error("分发事件失败 {}", e.getMessage());
+            permit.release();
+        }
     }
 
     private boolean shouldProcessByTime(long now, NoticeEvent event, int ignoreSeconds) {

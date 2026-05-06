@@ -6,6 +6,7 @@ import com.mikuac.shiro.dto.event.meta.LifecycleMetaEvent;
 import com.mikuac.shiro.dto.event.meta.MetaEvent;
 import fun.imiku.napcat4j.annotation.meta.HeartbeatListener;
 import fun.imiku.napcat4j.annotation.meta.LifeCycleListener;
+import fun.imiku.napcat4j.component.ConcurrencyLimiter;
 import fun.imiku.napcat4j.listener.MetaListener;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -27,13 +28,15 @@ import java.util.concurrent.Executors;
 public class MetaEventDispatcher {
 
     private final ApplicationContext applicationContext;
+    private final ConcurrencyLimiter concurrencyLimiter;
     private final ExecutorService virtualThreadExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
     private List<ListenerBinding<HeartbeatMetaEvent>> heartbeatListeners = List.of();
     private List<ListenerBinding<LifecycleMetaEvent>> lifecycleListeners = List.of();
 
-    public MetaEventDispatcher(ApplicationContext applicationContext) {
+    public MetaEventDispatcher(ApplicationContext applicationContext, ConcurrencyLimiter concurrencyLimiter) {
         this.applicationContext = applicationContext;
+        this.concurrencyLimiter = concurrencyLimiter;
     }
 
     @PostConstruct
@@ -73,18 +76,29 @@ public class MetaEventDispatcher {
         if (!shouldProcessByTime(now, event, binding.ignoreSeconds())) {
             return;
         }
-        virtualThreadExecutor.execute(() -> {
-            try {
-                T filteredEvent = binding.listener().filter(bot, event);
-                if (filteredEvent == null) {
-                    return;
+        ConcurrencyLimiter.Permit permit = concurrencyLimiter.obtain();
+        if (permit == null) {
+            log.warn("消费元事件超出最大事件并发，丢弃事件 type={}", event.getClass().getSimpleName());
+            return;
+        }
+        // 此层不可用 try-with-resources，否则信号量会提前释放
+        try {
+            virtualThreadExecutor.execute(() -> {
+                try (permit) {
+                    T filteredEvent = binding.listener().filter(bot, event);
+                    if (filteredEvent == null) {
+                        return;
+                    }
+                    binding.listener().process(bot, filteredEvent);
+                } catch (Exception e) {
+                    log.error("消费元事件失败 listener={}, type={}",
+                            binding.listener().getClass().getName(), event.getClass().getSimpleName(), e);
                 }
-                binding.listener().process(bot, filteredEvent);
-            } catch (Exception e) {
-                log.error("消费元事件失败 listener={}, type={}",
-                        binding.listener().getClass().getName(), event.getClass().getSimpleName(), e);
-            }
-        });
+            });
+        } catch (Exception e) {
+            log.error("分发事件失败 {}", e.getMessage());
+            permit.release();
+        }
     }
 
     private boolean shouldProcessByTime(long now, MetaEvent event, int ignoreSeconds) {

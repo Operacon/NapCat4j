@@ -6,6 +6,7 @@ import com.mikuac.shiro.dto.event.request.GroupAddRequestEvent;
 import com.mikuac.shiro.dto.event.request.RequestEvent;
 import fun.imiku.napcat4j.annotation.request.FriendRequestListener;
 import fun.imiku.napcat4j.annotation.request.GroupRequestListener;
+import fun.imiku.napcat4j.component.ConcurrencyLimiter;
 import fun.imiku.napcat4j.listener.RequestListener;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -26,13 +27,15 @@ import java.util.concurrent.Executors;
 public class RequestEventDispatcher {
 
     private final ApplicationContext applicationContext;
+    private final ConcurrencyLimiter concurrencyLimiter;
     private final ExecutorService virtualThreadExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
     private List<ListenerBinding<FriendAddRequestEvent>> friendListeners = List.of();
     private List<ListenerBinding<GroupAddRequestEvent>> groupListeners = List.of();
 
-    public RequestEventDispatcher(ApplicationContext applicationContext) {
+    public RequestEventDispatcher(ApplicationContext applicationContext, ConcurrencyLimiter concurrencyLimiter) {
         this.applicationContext = applicationContext;
+        this.concurrencyLimiter = concurrencyLimiter;
     }
 
     @PostConstruct
@@ -67,18 +70,29 @@ public class RequestEventDispatcher {
     }
 
     private <T extends RequestEvent> void dispatchAsync(Bot bot, T event, ListenerBinding<T> binding) {
-        virtualThreadExecutor.execute(() -> {
-            try {
-                T filteredEvent = binding.listener().filter(bot, event);
-                if (filteredEvent == null) {
-                    return;
+        ConcurrencyLimiter.Permit permit = concurrencyLimiter.obtain();
+        if (permit == null) {
+            log.warn("消费请求事件超出最大事件并发，丢弃事件 type={}", event.getRequestType());
+            return;
+        }
+        // 此层不可用 try-with-resources，否则信号量会提前释放
+        try {
+            virtualThreadExecutor.execute(() -> {
+                try (permit) {
+                    T filteredEvent = binding.listener().filter(bot, event);
+                    if (filteredEvent == null) {
+                        return;
+                    }
+                    binding.listener().process(bot, filteredEvent);
+                } catch (Exception e) {
+                    log.error("消费请求事件失败 listener={}, type={}",
+                            binding.listener().getClass().getName(), event.getRequestType(), e);
                 }
-                binding.listener().process(bot, filteredEvent);
-            } catch (Exception e) {
-                log.error("消费请求事件失败 listener={}, type={}",
-                        binding.listener().getClass().getName(), event.getRequestType(), e);
-            }
-        });
+            });
+        } catch (Exception e) {
+            log.error("分发事件失败 {}", e.getMessage());
+            permit.release();
+        }
     }
 
     @SuppressWarnings("unchecked")

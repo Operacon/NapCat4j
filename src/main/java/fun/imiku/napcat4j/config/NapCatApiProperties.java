@@ -26,6 +26,11 @@ public class NapCatApiProperties {
      */
     private String accessToken;
 
+    /**
+     * bot 最大并发事件处理数，超过并发的事件将被<STRONG>丢弃!</STRONG>
+     */
+    private int botMaxEventConcurrency = 100;
+
     public void setUrl(String url) {
         this.url = normalizeBaseUrl(url);
     }
