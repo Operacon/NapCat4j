@@ -14,7 +14,7 @@ public class OB11MessageReply implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "reply";
 
     @NonNull
     @JsonProperty("data")

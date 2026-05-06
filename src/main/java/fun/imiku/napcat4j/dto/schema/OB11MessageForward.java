@@ -16,7 +16,7 @@ public class OB11MessageForward implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "forward";
 
     @NonNull
     @JsonProperty("data")

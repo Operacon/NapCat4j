@@ -12,7 +12,7 @@ public class OB11MessageMiniApp implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "miniapp";
 
     @NonNull
     @JsonProperty("data")

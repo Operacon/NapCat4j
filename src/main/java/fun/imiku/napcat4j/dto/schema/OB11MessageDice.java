@@ -12,7 +12,7 @@ public class OB11MessageDice implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "dice";
 
     @NonNull
     @JsonProperty("data")

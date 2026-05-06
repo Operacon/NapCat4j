@@ -17,7 +17,7 @@ public class OB11MessageFace implements OB11MessageData {
      */
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "face";
 
     /**
      * 消息段数据

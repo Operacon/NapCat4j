@@ -12,7 +12,7 @@ public class OB11MessageFlashTransfer implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "flashtransfer";
 
     @NonNull
     @JsonProperty("data")

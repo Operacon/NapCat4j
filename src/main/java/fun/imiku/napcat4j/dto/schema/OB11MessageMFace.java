@@ -12,7 +12,7 @@ public class OB11MessageMFace implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "mface";
 
     @NonNull
     @JsonProperty("data")

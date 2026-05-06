@@ -14,7 +14,7 @@ public class OB11MessageCustomMusic implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "music";
 
     @NonNull
     @JsonProperty("data")

@@ -12,7 +12,7 @@ public class OB11MessageXml implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "xml";
 
     @NonNull
     @JsonProperty("data")

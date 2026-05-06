@@ -12,7 +12,7 @@ public class OB11MessageRecord implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "record";
 
     @NonNull
     @JsonProperty("data")

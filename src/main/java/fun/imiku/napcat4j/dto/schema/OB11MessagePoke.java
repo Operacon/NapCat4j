@@ -12,7 +12,7 @@ public class OB11MessagePoke implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "poke";
 
     @NonNull
     @JsonProperty("data")

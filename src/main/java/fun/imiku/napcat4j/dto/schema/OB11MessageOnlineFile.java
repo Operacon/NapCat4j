@@ -12,7 +12,7 @@ public class OB11MessageOnlineFile implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "onlinefile";
 
     @NonNull
     @JsonProperty("data")

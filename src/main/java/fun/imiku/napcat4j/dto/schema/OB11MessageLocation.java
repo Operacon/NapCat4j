@@ -14,7 +14,7 @@ public class OB11MessageLocation implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "location";
 
     @NonNull
     @JsonProperty("data")

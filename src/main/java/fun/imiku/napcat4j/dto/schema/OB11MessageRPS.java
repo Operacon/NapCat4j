@@ -12,7 +12,7 @@ public class OB11MessageRPS implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "rps";
 
     @NonNull
     @JsonProperty("data")

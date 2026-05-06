@@ -16,7 +16,7 @@ public class OB11MessageNode implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "node";
 
     @NonNull
     @JsonProperty("data")

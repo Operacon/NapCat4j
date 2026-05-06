@@ -12,7 +12,7 @@ public class OB11MessageContact implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "contact";
 
     @NonNull
     @JsonProperty("data")

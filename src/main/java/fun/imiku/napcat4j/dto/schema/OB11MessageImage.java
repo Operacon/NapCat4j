@@ -15,7 +15,7 @@ public class OB11MessageImage implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "image";
 
     @NonNull
     @JsonProperty("data")

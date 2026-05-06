@@ -14,7 +14,7 @@ public class OB11MessageJson implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "json";
 
     @NonNull
     @JsonProperty("data")

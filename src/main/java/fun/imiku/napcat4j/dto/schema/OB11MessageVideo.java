@@ -12,7 +12,7 @@ public class OB11MessageVideo implements OB11MessageData {
 
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "video";
 
     @NonNull
     @JsonProperty("data")

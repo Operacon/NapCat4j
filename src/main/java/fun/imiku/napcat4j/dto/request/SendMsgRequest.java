@@ -2,7 +2,6 @@ package fun.imiku.napcat4j.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import fun.imiku.napcat4j.dto.schema.OB11MessageData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,10 +44,14 @@ public class SendMsgRequest {
 
     /**
      * 消息内容（OB11MessageMixType）
+     * <p>
+     * List of OB11MessageData, OB11MessageData, String, List of ArrayMsg, ArrayMsg
+     * <p>
+     * 推荐使用 Shiro 的 ArrayMsg 及其 builder 构建
      */
     @NonNull
     @JsonProperty("message")
-    private OB11MessageData message;
+    private Object message;
 
     /**
      * 是否作为纯文本发送

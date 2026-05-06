@@ -15,7 +15,7 @@ public class OB11MessageText implements OB11MessageData {
      */
     @NonNull
     @JsonProperty("type")
-    private String type;
+    private String type = "text";
 
     /**
      * 消息段数据
